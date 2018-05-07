@@ -31,3 +31,11 @@
 - 키움증권 Open API+ 모듈설치
 - KOA Studio 설치
 - 상시 모의투자 신청
+
+
+
+# postgreSQL사용법
+DB서비스을 시작시킴
+1) 시작-"Start PostgreSQL 10"
+명령어를 입력할 수 있는 Shell을 실행시킴
+2) 시작-"PSQL"
