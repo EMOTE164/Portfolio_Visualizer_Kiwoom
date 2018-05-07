@@ -35,6 +35,9 @@
 
 
 # postgreSQL사용법
+TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
+단축 명령어 : http://dbrang.tistory.com/749
+
 1.DB서비스을 시작시킴
 - 시작-"Start PostgreSQL 10"
 
