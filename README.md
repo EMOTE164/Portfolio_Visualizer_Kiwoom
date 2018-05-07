@@ -48,6 +48,4 @@
 - //생성시 OWNER도 지정해 줄 수 있는데 명시를 해주지 않으면 기본 값으로 알아서 들어감
 
 4. TABLESPACE조회
-- .. code-block:: bash
-    $ conda install -c Quantopian zipline
-\db
+- ``\db``
