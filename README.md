@@ -48,6 +48,7 @@
 - //생성시 OWNER도 지정해 줄 수 있는데 명시를 해주지 않으면 기본 값으로 알아서 들어감
 - 조회방법 : ``\db``
 - 삭제방법 : ``drop TABLESPACE 테이블스페이스명;``
+- //TABLESPACE와 연결된 DATABASE가 존재한다면 삭제불가하니 하위 내용을 지우고 삭제가능
 
 4. DATABASE 생성
 - ``create 데이터베이스명 TABLESPACE 테이블스페이스명``
@@ -67,6 +68,9 @@
 - 삭제방법 : ``drop SCHEMA 스키마명;``
 
 7. TABLE 생성
+- ``create TABLE 스키마명.테이블명 ( 변수명 integer PRIMARY KEY, 변수명 varchar(20), 변수명 char(13), 변수명 date)``
+- //지정한 스키마명의 하위 테이블로 들어감
 - ``create TABLE 테이블명 ( 변수명 integer PRIMARY KEY, 변수명 varchar(20), 변수명 char(13), 변수명 date)``
+- //public 스키마의 하위 테이블로 들어감
 - 조회방법 : ``\dt``
 - 삭제방법 : ``drop TABLE 테이블명``
