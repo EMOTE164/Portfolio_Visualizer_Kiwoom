@@ -1,5 +1,3 @@
-# Portfolio_Visualizer_Kiwoom
-
 # 실행가능환경
 
 - 운영체제 : Windows7 or 10
