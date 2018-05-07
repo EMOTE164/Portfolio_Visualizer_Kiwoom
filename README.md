@@ -40,3 +40,10 @@
 
 2.명령어를 입력할 수 있는 Shell을 실행시킴
 - 시작-"PSQL"
+
+3.Table Space를 생성
+- 
+- create TABLESPACE stock LOCATION 'C:\PostgreSQL\';
+- 
+mkdir  ‘directory명’
+chown  user명.group명  ‘directory명’
