@@ -4,10 +4,4 @@
 
 3. ``create DATABASE stockdb TABLESPACE Portfolio_Visualizer_Kiwoom;``
 
-4. ``create SCHEMA stock_code;``
-
-5. ``create SCHEMA stock_daily;``
-
-6. ``\c stockdb``
-
-7. ``create TABLE stock_code.kospi ();``
+4. ``\c stockdb``
