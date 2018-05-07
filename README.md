@@ -43,7 +43,7 @@
 
 3.TABLESPACE를 생성
 - TableSpace는 PostgreSQL에서 DBA가 데이터베이스 객체가 저장된 파일 시스템 장소를 지정할 수 있게 해주는 기능을 함
-- create TABLESPACE 테이블스페이스명 LOCATION 'C:\PostgreSQL\';
+- ``create TABLESPACE 테이블스페이스명 LOCATION 'C:\PostgreSQL\';``
 - //명령문의 시작 단어는 소문자로 시작하게 하라. 대분자로 시작하면 오류로 인식한다. 아직 안정화가 덜 된것일까?
 - //생성시 OWNER도 지정해 줄 수 있는데 명시를 해주지 않으면 기본 값으로 알아서 들어감
 
