@@ -71,6 +71,7 @@ class Program(QMainWindow):
                 result = cursor.fetchall()  # type : list
                 print(result)
 
+                print("테이블에 레코드 삽입완료")
 
             except Exception as e:
                 print("error")

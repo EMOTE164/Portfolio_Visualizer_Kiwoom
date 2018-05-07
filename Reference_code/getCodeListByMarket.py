@@ -3,7 +3,6 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QAxContainer import *
-import time
 
 class Program(QMainWindow):
 
