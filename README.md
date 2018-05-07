@@ -80,4 +80,5 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 - ``create TABLE 테이블명 ( 변수명 integer PRIMARY KEY, 변수명 varchar(20), 변수명 char(13), 변수명 date)``
 - //public 스키마의 하위 테이블로 들어감
 - 조회방법 : ``\dt``
+- 조회방법 : ``\dt 스키마명.``
 - 삭제방법 : ``drop TABLE 테이블명``
