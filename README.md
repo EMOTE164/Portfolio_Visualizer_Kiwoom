@@ -37,6 +37,8 @@
 # postgreSQL사용법
 TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 
+테이블생성까지의 과정 : http://freeprog.tistory.com/248
+
 단축 명령어 : http://dbrang.tistory.com/749
 
 1.DB서비스을 시작시킴
