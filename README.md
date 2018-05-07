@@ -68,5 +68,5 @@
 
 7. TABLE 생성
 - ``create TABLE 테이블명 ( 변수명 integer PRIMARY KEY, 변수명 varchar(20), 변수명 char(13), 변수명 date)``
-- 조회방법``\dt``
-- 삭제방법````
+- 조회방법 : ``\dt``
+- 삭제방법 : ``drop TABLE 테이블명``
