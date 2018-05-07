@@ -66,3 +66,5 @@
 - 조회방법 : ``\dn``
 - 삭제방법 : ``drop SCHEMA 스키마명;``
 
+7. TABLE 생성
+- ``create TABLE 테이블명 ( 변수명 integer PRIMARY KEY, 변수명 varchar(20), 변수명 char(13), 변수명 date)``
