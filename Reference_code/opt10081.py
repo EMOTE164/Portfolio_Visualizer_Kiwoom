@@ -23,7 +23,7 @@ class Program(QMainWindow):
             self.requestTrData(0)  # 로그인 성공이 확인된 후에만 요청을 할 수 있다.
 
     def requestTrData(self, c):
-            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", "035420")  # 종목코드
+            self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", "000660")  # 종목코드
             self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "기준일자", "20180508")  # 조회할 날짜
             self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "수정주가구분", "0")   # 0 or 1, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면불할, 16: 액면병합, 32: 기업합병, 64: 감자, 256: 권리락
             self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10081_req", "opt10081", c, "0766") # 사용사요청명칭 / 요청함수 / 초기조회:0, 연속조회:2 / 화면번호
