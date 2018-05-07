@@ -1,1 +1,13 @@
+1. C:\PostgreSQL\ 의 경로에 Portfolio_Visualizer_Kiwoom 폴더 생성.
 
+2. create TABLESPACE Portfolio_Visualizer_Kiwoom 'C:\PostgreSQL\Portfolio_Visualizer_Kiwoom';
+
+3. create DATABASE stockdb TABLESPACE Portfolio_Visualizer_Kiwoom;
+
+4. create SCHEMA stock_code;
+
+5. create SCHEMA stock_daily;
+
+6. \c stockdb
+
+7. create TABLE stock_code.kospi ();
