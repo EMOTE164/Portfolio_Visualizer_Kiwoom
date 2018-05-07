@@ -29,7 +29,7 @@
 키움증권 API를 사용하려면 아래의 4가지 작업을 해줘야 한다.
 
 - https://www2.kiwoom.com/nkw.templateFrameSet.do?m=m1408000000
-- 1) Open API 사용신청
-- 2) 키움증권 Open API+ 모듈설치
-- 3) KOA Studio 설치
-- 4) 상시 모의투자 신청
+- Open API 사용신청
+- 키움증권 Open API+ 모듈설치
+- KOA Studio 설치
+- 상시 모의투자 신청
