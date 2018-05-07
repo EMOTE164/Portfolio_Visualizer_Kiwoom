@@ -14,7 +14,7 @@
 https://www.anaconda.com/downloada
 
 
-2. 본 프로그램에서는 데이터베이스로 postgreSQL을 사용하므로 다음 사이트에서 "Download the graphical installer" 클릭 후 자신에 맞는 설치하면 쉽다.
+2. 데이터베이스로 postgreSQL을 사용하므로 다음 사이트에서 "Download the graphical installer" 클릭 후 자신에 맞는 설치.
 
 https://www.postgresql.org/download/windows/
 
