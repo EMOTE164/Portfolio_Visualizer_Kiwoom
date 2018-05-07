@@ -42,8 +42,6 @@
 - 시작-"PSQL"
 
 3.Table Space를 생성
-- 
+- Table Space는 PostgreSQL에서 DBA가 데이터베이스 객체가 저장된 파일 시스템 장소를 지정할 수 있게 해주는 기능을 함
+- 생성시 OWNER도 지정해 줄 수 있는데 명시를 해주지 않으면 기본 값으로 알아서 들어감
 - create TABLESPACE stock LOCATION 'C:\PostgreSQL\';
-- 
-mkdir  ‘directory명’
-chown  user명.group명  ‘directory명’
