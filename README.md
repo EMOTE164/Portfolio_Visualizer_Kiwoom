@@ -35,8 +35,8 @@
 
 
 # postgreSQL사용법
-DB서비스을 시작시킴
-1) 시작-"Start PostgreSQL 10"
+1.DB서비스을 시작시킴
+- 시작-"Start PostgreSQL 10"
 
-명령어를 입력할 수 있는 Shell을 실행시킴
-2) 시작-"PSQL"
+2.명령어를 입력할 수 있는 Shell을 실행시킴
+- 시작-"PSQL"
