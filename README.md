@@ -1,6 +1,7 @@
 # Portfolio_Visualizer_Kiwoom
 
 <실행가능환경>
+
 운영체제 : Windows7 or 10
 
 파이썬 : python3.x 버전이면 무난히 작동함(꼭 32bit 설치!! 안그러면 키움증권 api가 작동을 안함)
