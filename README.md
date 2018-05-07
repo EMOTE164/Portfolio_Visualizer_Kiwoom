@@ -2,15 +2,15 @@
 
 <실행가능환경>
 
--운영체제 : Windows7 or 10
+- 운영체제 : Windows7 or 10
 
--파이썬 : python3.x 32bit
+- 파이썬 : python3.x 32bit
 
--데이터베이스 : postgreSQL 10.3
+- 데이터베이스 : postgreSQL 10.3
 
--웹프레임워크 : Django
+- 웹프레임워크 : Django
 
--증권사API : 키움증권 OPEN API
+- 증권사API : 키움증권 OPEN API
 
 
 
