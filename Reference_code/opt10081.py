@@ -20,6 +20,7 @@ class Program(QMainWindow):
     def receiveLoginEvent(self, err_code):
         if err_code == 0:
             print("로그인 성공")
+
             self.requestTrData(0)  # 로그인 성공이 확인된 후에만 요청을 할 수 있다.
 
     def requestTrData(self, c):
@@ -44,7 +45,6 @@ class Program(QMainWindow):
                 volumeMoney = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "거래대금")
 
                 print(i, date.strip(), "\t", startPrice.strip(), "\t", highPrice.strip(), "\t", lowPrice.strip(), "\t", closePrice.strip(), "\t", volumeCount.strip(), "\t", volumeMoney.strip())
-
 
             if (prev_next == '2'):
                 print("연속조회")

@@ -104,8 +104,6 @@ class Program(QMainWindow):
                 print(e)
 
 
-
-
             if (prev_next == '2'):
                 print("연속조회")
                 time.sleep(0.5)        # !이 딜레이를 없애면 초당 요청 블락에 걸려서 전체 조회가 되지 않는다.!
