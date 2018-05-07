@@ -2,9 +2,13 @@
 
 <실행가능환경>
 운영체제 : Windows7 or 10
+
 파이썬 : python3.x 버전이면 무난히 작동함(꼭 32bit 설치!! 안그러면 키움증권 api가 작동을 안함)
+
 데이터베이스 : postgreSQL 10.3
+
 웹프레임워크 : Django
+
 증권사API : 키움증권 OPEN API
 
 <환경구성을 위한 설치>
