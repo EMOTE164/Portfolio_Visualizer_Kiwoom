@@ -76,6 +76,7 @@ class Program(QMainWindow):
                 print(result)
 
                 print("테이블에 레코드 삽입완료")
+                exit(1)
 
             except Exception as e:
                 print("error")
