@@ -34,29 +34,26 @@ class Program(QMainWindow):
 
                 cursor = conn.cursor()
 
-                # 스키마 생성
-                cursor.execute("create SCHEMA IF NOT EXISTS stock_code;")
-
-                # 존재할 수 있는 테이블 제거
-                cursor.execute("drop TABLE IF EXISTS stock_code.kospi;")
-                cursor.execute("drop TABLE IF EXISTS stock_code.kosdaq;")
-
-                # stock_code스키마 하위에 kospi, kosdaq 테이블을 생성
-                cursor.execute("create TABLE stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL);")
-                cursor.execute("create TABLE stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL);")
-
                 # stock_code.kospi 테이블 채워넣기
                 ret = self.kiwoom.dynamicCall("GetCodeListByMarket(QString)", ["0"])  # 0: 코스피, 10: 코스닥, 3: ELW, 8: ETF, 50: 코넥스, 4: 뮤추얼펀드, 5: 신주인수권, 6: 리츠, 9: 하이얼펀드, 30: K-PTC
                 kospi_code_list = ret.split(';')
 
                 for code in kospi_code_list:
                     name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
-                    cursor.execute("INSERT INTO stock_code.kospi(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+
+                    cursor.execute("SELECT count(*) FROM stock_code.kospi WHERE code = \'"+ code +"\';")
+                    itemCount = cursor.fetchall()[0][0]
+
+                    if(itemCount == 0): # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
+                        cursor.execute("INSERT INTO stock_code.kospi(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+                    else:
+                        print(code + "는 이미 존재하여 넣지 않음")
 
                 cursor.execute("SELECT * FROM stock_code.kospi;")
 
                 result = cursor.fetchall()  # type : list
                 print(result)
+
 
                 # stock_code.kosdaq 테이블 채워넣기
                 ret = self.kiwoom.dynamicCall("GetCodeListByMarket(QString)", ["10"])  # 0: 코스피, 10: 코스닥, 3: ELW, 8: ETF, 50: 코넥스, 4: 뮤추얼펀드, 5: 신주인수권, 6: 리츠, 9: 하이얼펀드, 30: K-PTC
@@ -64,7 +61,14 @@ class Program(QMainWindow):
 
                 for code in kosdaq_code_list:
                     name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
-                    cursor.execute("INSERT INTO stock_code.kosdaq(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+
+                    cursor.execute("SELECT count(*) FROM stock_code.kosdaq WHERE code = \'" + code + "\';")
+                    itemCount = cursor.fetchall()[0][0]
+
+                    if (itemCount == 0):  # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
+                        cursor.execute("INSERT INTO stock_code.kosdaq(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+                    else:
+                        print(code + "는 이미 존재하여 넣지 않음")
 
                 cursor.execute("SELECT * FROM stock_code.kosdaq;")
 
