@@ -31,6 +31,7 @@ class Program(QMainWindow):
 
     def receiveTrData(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
         if rqname == "opt10081_req":
+            print("trcode : " + trcode)
             print(prev_next)
             for i in range(800): # 한번 요청에 600일의 정보가 들어오는데 혹시몰라서 큰 값으로 잡음.
                 date = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, i, "일자")
