@@ -76,7 +76,6 @@ class Program(QMainWindow):
                 print(result)
 
                 print("테이블에 레코드 삽입완료")
-                exit(1)
 
             except Exception as e:
                 print("error")
@@ -85,6 +84,7 @@ class Program(QMainWindow):
             conn.commit()  # 이게 없으면 실제로 반영이 안됨.
             cursor.close()
             conn.close()
+            exit(1)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
