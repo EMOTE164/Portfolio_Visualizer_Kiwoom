@@ -13,8 +13,9 @@ port = "9003"           #설치할 때 지정할 것
 
 conn_string = "host={0} user={1} dbname={2} password={3} port={4}".format(host, user, dbname, password, port)
 MODE = "kospi" # kosdaq으로 지정하면 코드닥에 대한 데이터도 처리가능하다.
+STANDARD_DATE = "20180506"
 
-TR_REQ_TIME_INTERVAL = 0.2
+TR_REQ_TIME_INTERVAL = 0.7
 
 class Kiwoom(QAxWidget):
     def __init__(self):
@@ -128,7 +129,6 @@ class Kiwoom(QAxWidget):
     def check_Filled(self):
         try:
             conn = psycopg2.connect(conn_string)
-            print("연결성공")
             cursor = conn.cursor()
             cursor.execute("update stock_code."+ MODE + " SET isupdated = true WHERE code = \'" + self.req_stock_code + "\';")
         except Exception as e:
@@ -139,28 +139,38 @@ class Kiwoom(QAxWidget):
         cursor.close()
         conn.close()
 
+    def getTotalCode(self):
+        try:
+            conn = psycopg2.connect(conn_string)
+            cursor = conn.cursor()
+            cursor.execute("select code FROM stock_code." + MODE + " WHERE isupdated = false;")
+            noUpdated_codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
+        except Exception as e:
+            print("error")
+            print(e)
+        cursor.close()
+        conn.close()
+        return noUpdated_codeList
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     kiwoom = Kiwoom()
     kiwoom.comm_connect()
 
-
-    #!!!데이터베이스 컨넥스 객체와 컨객체를  생성자에서 만들어주고 정상정으로 완전히 입력될 때만 chek.Filled()함수를 부르고 commit을 진행하면 좋을거 같다.
-
-    # opt10081 TR 요청
-    kiwoom.req_stock_code = "039490"
-    kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
-    kiwoom.set_input_value("기준일자", "20170224")
-    kiwoom.set_input_value("수정주가구분", 1)
-    kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")      # 세번째인자가 0일때 한번조회
-
-    while kiwoom.remained_data == True:
-        time.sleep(TR_REQ_TIME_INTERVAL)
+    for item in kiwoom.getTotalCode():
+        kiwoom.req_stock_code = item[0]
         kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
-        kiwoom.set_input_value("기준일자", "20170224")
+        kiwoom.set_input_value("기준일자", STANDARD_DATE)
         kiwoom.set_input_value("수정주가구분", 1)
-        kiwoom.comm_rq_data("opt10081_req", "opt10081", 2, "0101")  # 세번째인자가 2일때 연속조회
+        kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")  # 세번째인자가 0일때 한번조회
 
-    kiwoom.check_Filled()   # 정상적으로 다 입력한 테이블은 isupdated column을 true로 수정해준다.
+        while kiwoom.remained_data == True:
+            time.sleep(TR_REQ_TIME_INTERVAL)
+            kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
+            kiwoom.set_input_value("기준일자", STANDARD_DATE)
+            kiwoom.set_input_value("수정주가구분", 1)
+            kiwoom.comm_rq_data("opt10081_req", "opt10081", 2, "0101")  # 세번째인자가 2일때 연속조회
 
-    print("연속조회 완료")
+        kiwoom.check_Filled()  # 정상적으로 다 입력한 테이블은 isupdated column을 true로 수정해준다.
+        print("연속조회 완료")
