@@ -15,7 +15,7 @@ conn_string = "host={0} user={1} dbname={2} password={3} port={4}".format(host, 
 MODE = "kospi" # kosdaq으로 지정하면 코드닥에 대한 데이터도 처리가능하다.
 STANDARD_DATE = "20180506"
 
-TR_REQ_TIME_INTERVAL = 0.7
+TR_REQ_TIME_INTERVAL = 0.5
 
 class Kiwoom(QAxWidget):
     def __init__(self):
@@ -173,4 +173,8 @@ if __name__ == "__main__":
             kiwoom.comm_rq_data("opt10081_req", "opt10081", 2, "0101")  # 세번째인자가 2일때 연속조회
 
         kiwoom.check_Filled()  # 정상적으로 다 입력한 테이블은 isupdated column을 true로 수정해준다.
+
+        #여기서 가장 최근 날짜를 갱신해줌.
+
+
         print("연속조회 완료")
