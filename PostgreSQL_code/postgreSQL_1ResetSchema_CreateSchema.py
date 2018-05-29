@@ -1,3 +1,5 @@
+#데이터베이스 초기화
+
 import psycopg2
 
 host = "localhost"
@@ -20,22 +22,23 @@ try:
     cursor.execute("drop TABLE IF EXISTS stock_kosdaq.daily_price;")
     cursor.execute("drop TABLE IF EXISTS stock_code.kospi;")
     cursor.execute("drop TABLE IF EXISTS stock_code.kosdaq;")
-    print("기존에 존재하던 테이블 제거")
+    print("기존에 존재하던 테이블 제거완료")
 
     # 스키마 제거
     cursor.execute("drop SCHEMA stock_code;")
     cursor.execute("drop SCHEMA stock_kospi;")
     cursor.execute("drop SCHEMA stock_kosdaq;")
+    print("기존에 존재하던 스키마 제거완료")
 
     # 스키마 생성
     cursor.execute("create SCHEMA IF NOT EXISTS stock_code;")
     cursor.execute("create SCHEMA IF NOT EXISTS stock_kospi;")
     cursor.execute("create SCHEMA IF NOT EXISTS stock_kosdaq;")
-    print("스키마 생성")
+    print("스키마 생성완료")
 
     # 테이블 생성
-    cursor.execute("create TABLE stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer, isUpdated boolean default FALSE);")
-    cursor.execute("create TABLE stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer, isUpdated boolean default FALSE);")
+    cursor.execute("create TABLE stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer);")
+    cursor.execute("create TABLE stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer);")
     cursor.execute("create TABLE stock_kospi.daily_price(code varchar(6) NOT NULL REFERENCES stock_code.kospi(code), date integer NOT NULL, open integer, low integer, high integer, close integer, count integer, money integer, PRIMARY KEY(code, date));")
     cursor.execute("create TABLE stock_kosdaq.daily_price(code varchar(6) NOT NULL REFERENCES stock_code.kosdaq(code), date integer NOT NULL, open integer, low integer, high integer, close integer, count integer, money integer, PRIMARY KEY(code, date));")
     print("테이블 생성완료")
