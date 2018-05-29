@@ -1,4 +1,4 @@
-#초기에 odate, rdate의 값이 -1 이라면 일일데이터를 받아와 추가해주는 코드.
+#실행하면 오늘까지의 데이터를 받아옴.
 
 import sys
 from PyQt5.QtWidgets import *
@@ -19,7 +19,7 @@ conn_string = "host={0} user={1} dbname={2} password={3} port={4}".format(host, 
 
 #세팅설정
 MODE = "kospi" # kosdaq으로 지정하면 코드닥에 대한 데이터도 처리가능하다.
-STANDARD_DATE = datetime.today().strftime("%Y%m%d") #오늘 날짜
+STANDARD_DATE = datetime.today().strftime("%Y%m%d") #오늘날짜
 TR_REQ_TIME_INTERVAL = 0.5
 
 class Kiwoom(QAxWidget):
@@ -28,6 +28,7 @@ class Kiwoom(QAxWidget):
         self._create_kiwoom_instance()
         self._set_signal_slots()
         self.req_stock_code = ""    #실행중에는 현재 작업중인 주식코드를 저장하고 있음.
+        self.isHappendError = False
 
     def _create_kiwoom_instance(self):
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
@@ -43,6 +44,7 @@ class Kiwoom(QAxWidget):
         self.login_event_loop = QEventLoop()    # QEventLoop는 키움증권 서버에서 보내오는 이벤트를 모두 처리할 수 있는듯 하다.
         self.login_event_loop.exec_()           # 여기서는 OnEventConnect를 감시하고자 한다.
 
+    #로그인 이벤트를 처리하는 함수.
     def _event_connect(self, err_code):
         if err_code == 0:
             print("connected")
@@ -109,24 +111,37 @@ class Kiwoom(QAxWidget):
                 close = self._comm_get_data(trcode, "", rqname, i, "현재가")
                 volume = self._comm_get_data(trcode, "", rqname, i, "거래량")
                 money = self._comm_get_data(trcode, "", rqname, i, "거래대금")
-
-                print(date, open, high, low, close, volume, money)
-                #cursor.execute("insert INTO stock_kospi.daily_price(code, date, open, low, high, close, count, money) VALUES(\'" + self.req_stock_code + "\',\'" + date + "\',\'" + open + "\',\'" + high + "\',\'" + low + "\',\'" + close + "\',\'" + volume + "\',\'" + money + "\');")
+                print(date, self.req_stock_code, open, high, low, close, volume, money)
+                cursor.execute("insert INTO stock_"+ MODE +".daily_price(code, date, open, low, high, close, count, money) VALUES(\'" + self.req_stock_code + "\',\'" + date + "\',\'" + open + "\',\'" + high + "\',\'" + low + "\',\'" + close + "\',\'" + volume + "\',\'" + money + "\');")
+                conn.commit()  # 이게 없으면 실제로 반영이 안됨.
 
         except Exception as e:
             print("error")
             print(e)
+            self.isHappendError = True
+            print("이미 존재하는 데이터 발견")
 
         conn.commit()  # 이게 없으면 실제로 반영이 안됨.
         cursor.close()
         conn.close()
 
     #넣어야할 데이터를 모두 넣었다면 stock_code.kospi 또는 stock_code.kosdaq의 isUpdated column값을 true로 세트해준다.
-    def check_Filled(self):
+    def fill_o_r_date(self):
         try:
             conn = psycopg2.connect(conn_string)
             cursor = conn.cursor()
-            cursor.execute("update stock_code."+ MODE + " SET isupdated = true WHERE code = \'" + self.req_stock_code + "\';")
+
+            cursor.execute("SELECT MIN(date) FROM stock_"+ MODE +".daily_price WHERE code = \'" + self.req_stock_code + "\'")
+            oDate = cursor.fetchall()  # type : list
+            cursor.execute("SELECT MAX(date) FROM stock_"+ MODE +".daily_price WHERE code = \'" + self.req_stock_code + "\'")
+            rDate = cursor.fetchall()  # type : list
+
+            if(oDate[0][0] != -1 and rDate[0][0] != -1):
+                cursor.execute("update stock_code." + MODE + " SET odate = \'" + str(oDate[0][0]) + "\' WHERE code = \'" + self.req_stock_code + "\';")
+                cursor.execute("update stock_code." + MODE + " SET rdate = \'" + str(rDate[0][0]) + "\' WHERE code = \'" + self.req_stock_code + "\';")
+            else:
+                cursor.execute("update stock_code." + MODE + " SET rdate = \'" + str(rDate[0][0]) + "\' WHERE code = \'" + self.req_stock_code + "\';")
+
         except Exception as e:
             print("error")
             print(e)
@@ -140,14 +155,16 @@ class Kiwoom(QAxWidget):
         try:
             conn = psycopg2.connect(conn_string)
             cursor = conn.cursor()
-            cursor.execute("select code FROM stock_code." + MODE + " WHERE odate = -1 and rdate = -1;")
-            noUpdated_codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
+            cursor.execute("select code FROM stock_code." + MODE +";")
+            codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
         except Exception as e:
             print("error")
             print(e)
+            print(type(e))
+
         cursor.close()
         conn.close()
-        return noUpdated_codeList
+        return codeList
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -158,17 +175,17 @@ if __name__ == "__main__":
         kiwoom.req_stock_code = item[0]
         kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
         kiwoom.set_input_value("기준일자", STANDARD_DATE)
-        kiwoom.set_input_value("수정주가구분", 1)
-        kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")    # 요청 // 세 번째인자가 0일때 한번조회
+        kiwoom.set_input_value("수정주가구분", 0)                      # 0: ?, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
+        kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")   # 요청 // 세 번째인자가 0일때 한번조회
 
-        while kiwoom.remained_data == True:
+        while (kiwoom.remained_data == True) and (kiwoom.isHappendError == False):
             time.sleep(TR_REQ_TIME_INTERVAL)
             kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
             kiwoom.set_input_value("기준일자", STANDARD_DATE)
-            kiwoom.set_input_value("수정주가구분", 1)
+            kiwoom.set_input_value("수정주가구분", 0)
             kiwoom.comm_rq_data("opt10081_req", "opt10081", 2, "0101") # 요청 // 세 번째인자가 2일때 연속조회
 
-        kiwoom.check_Filled()  # 정상적으로 다 입력한 테이블은 isupdated column을 true로 수정해준다.
+        kiwoom.fill_o_r_date()  # 정상적으로 다 입력한 테이블은 odate와 rdate 갱신
+        kiwoom.isHappendError == False
 
-        #여기서 가장 최근 날짜를 갱신해줌.
         print("연속조회 완료")
