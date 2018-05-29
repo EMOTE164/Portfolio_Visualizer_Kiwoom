@@ -155,7 +155,7 @@ class Kiwoom(QAxWidget):
         try:
             conn = psycopg2.connect(conn_string)
             cursor = conn.cursor()
-            cursor.execute("select code FROM stock_code." + MODE +";")
+            cursor.execute("select code FROM stock_code." + MODE +" order by code;")
             codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
         except Exception as e:
             print("error")
@@ -188,4 +188,4 @@ if __name__ == "__main__":
         kiwoom.fill_o_r_date()  # 정상적으로 다 입력한 테이블은 odate와 rdate 갱신
         kiwoom.isHappendError == False
 
-        print("연속조회 완료")
+        print("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
