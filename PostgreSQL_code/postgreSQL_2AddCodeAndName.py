@@ -39,18 +39,18 @@ class Program(QMainWindow):
                 kospi_code_list = ret.split(';')
 
                 for code in kospi_code_list:
-                    name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
+                    if(code != ""):
+                        name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
 
-                    cursor.execute("SELECT count(*) FROM stock_code.kospi WHERE code = \'"+ code +"\';")
-                    itemCount = cursor.fetchall()[0][0]
+                        cursor.execute("SELECT count(*) FROM stock_code.kospi WHERE code = \'" + code + "\';")
+                        itemCount = cursor.fetchall()[0][0]
 
-                    if(itemCount == 0): # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
-                        cursor.execute("INSERT INTO stock_code.kospi(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
-                    else:
-                        print(code + "는 이미 존재하여 넣지 않음")
-
+                        if (itemCount == 0):  # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
+                            cursor.execute(
+                                "INSERT INTO stock_code.kospi(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+                        else:
+                            print(code + "는 이미 존재하여 넣지 않음")
                 cursor.execute("SELECT * FROM stock_code.kospi;")
-
                 result = cursor.fetchall()  # type : list
                 print(result)
 
@@ -60,15 +60,16 @@ class Program(QMainWindow):
                 kosdaq_code_list = ret.split(';')
 
                 for code in kosdaq_code_list:
-                    name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
+                    if (code != ""):
+                        name = self.kiwoom.dynamicCall("GetMasterCodeName(QString)", [code])
 
-                    cursor.execute("SELECT count(*) FROM stock_code.kosdaq WHERE code = \'" + code + "\';")
-                    itemCount = cursor.fetchall()[0][0]
+                        cursor.execute("SELECT count(*) FROM stock_code.kosdaq WHERE code = \'" + code + "\';")
+                        itemCount = cursor.fetchall()[0][0]
 
-                    if (itemCount == 0):  # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
-                        cursor.execute("INSERT INTO stock_code.kosdaq(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
-                    else:
-                        print(code + "는 이미 존재하여 넣지 않음")
+                        if (itemCount == 0):  # 현재 코드가 테이블에 존재하지 않을 경우만 테이블에 삽입
+                            cursor.execute("INSERT INTO stock_code.kosdaq(code, name) VALUES(\'" + code + "\',\'" + name + "\');")
+                        else:
+                            print(code + "는 이미 존재하여 넣지 않음")
 
                 cursor.execute("SELECT * FROM stock_code.kosdaq;")
 
