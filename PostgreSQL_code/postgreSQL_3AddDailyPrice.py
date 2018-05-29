@@ -16,7 +16,6 @@ port = "9003"           #설치할 때 지정할 것
 
 conn_string = "host={0} user={1} dbname={2} password={3} port={4}".format(host, user, dbname, password, port)
 
-
 #세팅설정
 MODE = "kospi" # kosdaq으로 지정하면 코드닥에 대한 데이터도 처리가능하다.
 STANDARD_DATE = datetime.today().strftime("%Y%m%d") #오늘날짜
@@ -171,11 +170,18 @@ if __name__ == "__main__":
     kiwoom = Kiwoom()
     kiwoom.comm_connect()
 
-    for item in kiwoom.getTotalCode():
+    print(len(kiwoom.getTotalCode()))   # ('000020',)
+
+    totalCodeList = kiwoom.getTotalCode()
+
+    for item in totalCodeList:
+        time.sleep(TR_REQ_TIME_INTERVAL)    #이게 있어야 데이터가 섞이는 일이 발생하지 않는다.
         kiwoom.req_stock_code = item[0]
+        print(kiwoom.req_stock_code + "하는중")
         kiwoom.set_input_value("종목코드", kiwoom.req_stock_code)
         kiwoom.set_input_value("기준일자", STANDARD_DATE)
         kiwoom.set_input_value("수정주가구분", 0)                      # 0: ?, 1: 유상증자, 2: 무상증자, 4: 배당락, 8: 액면분할, 16:액면병합, 32:기업합병, 64:감자, 256:권리락
+        print(kiwoom.req_stock_code + "하는중")
         kiwoom.comm_rq_data("opt10081_req", "opt10081", 0, "0101")   # 요청 // 세 번째인자가 0일때 한번조회
 
         while (kiwoom.remained_data == True) and (kiwoom.isHappendError == False):
@@ -187,5 +193,4 @@ if __name__ == "__main__":
 
         kiwoom.fill_o_r_date()  # 정상적으로 다 입력한 테이블은 odate와 rdate 갱신
         kiwoom.isHappendError == False
-
         print("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
