@@ -154,8 +154,16 @@ class Kiwoom(QAxWidget):
         try:
             conn = psycopg2.connect(conn_string)
             cursor = conn.cursor()
-            cursor.execute("select code FROM stock_code." + MODE +" order by code;")
-            codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
+
+            cursor.execute("select count(*) FROM stock_code." + MODE + " where odate = -1;")  # "where odate = -1"를 넣었다 빼줘라.
+            codeList = cursor.fetchall()  # 업데이트 안된 코드들만 뽑아냄
+
+            if(int(codeList[0][0]) > 0):
+                cursor.execute("select code FROM stock_code." + MODE + " where odate = -1 order by code;")
+                codeList = cursor.fetchall()  # 업데이트 안된 코드들만 뽑아냄
+            else:
+                cursor.execute("select code FROM stock_code." + MODE +" order by code;")
+                codeList = cursor.fetchall()  #업데이트 안된 코드들만 뽑아냄
         except Exception as e:
             print("error")
             print(e)
