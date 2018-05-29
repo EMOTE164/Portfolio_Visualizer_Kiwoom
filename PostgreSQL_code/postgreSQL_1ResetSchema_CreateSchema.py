@@ -37,8 +37,8 @@ try:
     print("스키마 생성완료")
 
     # 테이블 생성
-    cursor.execute("create TABLE stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer);")
-    cursor.execute("create TABLE stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer, rdate integer);")
+    cursor.execute("create TABLE stock_code.kospi(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer default -1, rdate integer default -1);")
+    cursor.execute("create TABLE stock_code.kosdaq(code varchar(6) NOT NULL PRIMARY KEY, name varchar(40) NOT NULL, odate integer default -1, rdate integer default -1);")
     cursor.execute("create TABLE stock_kospi.daily_price(code varchar(6) NOT NULL REFERENCES stock_code.kospi(code), date integer NOT NULL, open integer, low integer, high integer, close integer, count integer, money integer, PRIMARY KEY(code, date));")
     cursor.execute("create TABLE stock_kosdaq.daily_price(code varchar(6) NOT NULL REFERENCES stock_code.kosdaq(code), date integer NOT NULL, open integer, low integer, high integer, close integer, count integer, money integer, PRIMARY KEY(code, date));")
     print("테이블 생성완료")
