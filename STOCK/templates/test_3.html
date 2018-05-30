@@ -235,7 +235,7 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="form-group">
-                                                    <label class="control-label mb-10" for="exampleInputpwd_2">갱신 주기</label>
+                                                    <label class="control-label mb-10" for="exampleInputpwd_2">매매주기(일)</label>
                                                     <div class="input-group">
                                                         <div class="input-group-addon"><i class="icon-bell"></i></div>
                                                         <input id="timing_period" type="text" />
@@ -448,6 +448,8 @@
       <script>
 $(document).ready(function(){
 
+    var staticChart = null;
+
     function addHTMLClass(item, classname) {
     var obj = item
     if (typeof item=="string") {
@@ -541,6 +543,11 @@ function removeHTMLClass(item, classname) {
 
         div_root2.appendChild(canvas);
         $('#cardview').append(div_root2);
+
+            return true;
+        }
+        else{
+            return false;
         }
     }
 
@@ -586,15 +593,17 @@ function removeHTMLClass(item, classname) {
                 + number_keep + '&' + 'timing_period=' + timing_period + '&' + 'consider_item__list=' + consider_item__list ,
             success:function(data){
 
-                addResultBox();
+                var isChartMade = addResultBox();
 
                 data = decodeURIComponent(data)
                 var obj = JSON.parse(data);
                 console.log(obj["evaluation_money"]);    // obj[0]["code"] 이런식으로 사용ㅎㅎ..
                 console.log(obj["date"]);
 
-                var ctx = document.getElementById("myChart").getContext('2d');
-	            var myChart = new Chart(ctx, {
+                if(isChartMade){
+
+                    var ctx = document.getElementById("myChart").getContext('2d');
+	                var myChart = new Chart(ctx, {
 		            type: 'line',
 		            data: {
 			            labels: obj["date"],//["Redd", "Blue", "Yellow", "Green", "Purple", "Orange"], // x Axes
@@ -602,7 +611,7 @@ function removeHTMLClass(item, classname) {
 				            label: '# of Price',
 				            data: obj["evaluation_money"],//[12, 19, 3, 5, 2, 3],										// y Axes
 				            backgroundColor: [
-				    	        'rgba(75, 192, 192, 0.2)',
+				    	        'rgba(255, 206, 86, 1)',
 				            ],
 				            borderColor: [
 					            'rgba(255, 206, 86, 1)',
@@ -611,14 +620,22 @@ function removeHTMLClass(item, classname) {
 				            fill: false,
 				            type: 'line',
 				            lineTension: 0,
-                            pointRadius: 0,
+                            pointRadius: 0.5,
 				            borderWidth: 2
 			            }]
 		            },
 		            options: {
 
 	            	}
-	            });
+	                });
+	                staticChart = myChart;
+
+	            }
+                else{
+                    staticChart.config.data.labels = obj["date"];
+                    staticChart.config.data.datasets[0].data = obj["evaluation_money"];
+			        staticChart.update();
+                }
 
 	            $("#table_initial_money").empty();
                 $("#table_final_money").empty();
