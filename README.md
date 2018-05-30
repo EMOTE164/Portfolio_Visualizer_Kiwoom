@@ -82,3 +82,8 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 - 조회방법 : ``\dt``
 - 조회방법 : ``\dt 스키마명.``
 - 삭제방법 : ``drop TABLE 테이블명``
+
+# 프로젝트 실행순서
+1. Anaconda prompt에서 현재 경로를 STOCK폴더 하위로 이동.
+2. ``python manage.py runserver 0.0.0.0:80``으로 실행
+3. 브라우저에서 url입력란에 localhost를 입력하여 접속
