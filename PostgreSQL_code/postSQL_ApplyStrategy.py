@@ -1,17 +1,21 @@
+#상대적 모멘텀 투자 백테스팅
 from sqlalchemy import create_engine
-from pandas import Series, DataFrame, read_sql, concat
-import operator
+from pandas import DataFrame, read_sql, concat
+import json
+
+
 
 #사용자에게 입력받는 데이터
-startDate = "20000101"
-endDate = "20091230"
+startDate = "20160201"
+endDate = "20161130"
 
 initial_money = "1000000"
 
-consider_item__list = ["000020", "000040", "000080"]
+number_keep = "3"      # 보유할 종목의 수
 
-timing_period = "5"    # 매매시교체 시기
-number_keep = "2"      # 보유할 종목의 수
+timing_period = "10"    # 매매시교체 주기
+
+consider_item__list = ["000050", "000080", "000100", "000105", "000140"]
 
 
 try:
@@ -120,7 +124,7 @@ try:
                     code = items_df_list[holding_item_indexs[j][0]].loc[i][0]
                     action = "sell"
                     price = items_df_list[holding_item_indexs[j][0]].loc[i][5]
-                    volume = tradeDetails_df.loc[len(tradeDetails_df)-2][4]
+                    volume = holding_item_indexs[j][1]
                     total_money = price * volume
                     remain_balance = remain_balance + total_money
                     rows = [date, code, action, price, volume, total_money]     #row추가
@@ -139,11 +143,12 @@ try:
                 action = "buy"
                 price = items_df_list[benefit_compare_list[j][0]].loc[i][5]
                 volume = int(ableMoneyPerOneItem / price)
-                total_money = price * volume
-                remain_balance = remain_balance - total_money
-                rows = [date, code, action, price, volume, total_money]
-                tradeDetails_df.loc[len(tradeDetails_df)] = rows            #row추가
-                holding_item_indexs.append((benefit_compare_list[j][0],volume))
+                if (volume > 0):
+                    total_money = price * volume
+                    remain_balance = remain_balance - total_money
+                    rows = [date, code, action, price, volume, total_money]
+                    tradeDetails_df.loc[len(tradeDetails_df)] = rows            #row추가
+                    holding_item_indexs.append((benefit_compare_list[j][0],volume))
 
         #매일 여기서 자산이 얼마인지 확인.
         if(len(holding_item_indexs) == 0):
@@ -161,6 +166,31 @@ try:
     print(tradeDetails_df)
     print(dailyEvaluationValance_df)
 
+    for i in range(0, len(tradeDetails_df)):
+        print(tradeDetails_df.loc[i][0], tradeDetails_df.loc[i][1], tradeDetails_df.loc[i][2],
+              tradeDetails_df.loc[i][3], tradeDetails_df.loc[i][4])
+
+    for i in range(0, len(dailyEvaluationValance_df)):
+        print(dailyEvaluationValance_df.loc[i][0], dailyEvaluationValance_df.loc[i][1])
+
+
+    #Json변환
+    date_list = []
+    evaluation_money_list = []
+    for i in range(0, len(dailyEvaluationValance_df)):
+        date_list.append(dailyEvaluationValance_df.loc[i][0])
+        evaluation_money_list.append(dailyEvaluationValance_df.loc[i][1])
+    data = {}
+    data["date"] = date_list
+    data["evaluation_money"] = evaluation_money_list
+    json_data = json.dumps(data, ensure_ascii=False)
+    print(json_data)
+
+    #MDD계산
+
+
+
+    #CAGR계산
 
 
 except Exception as e:
