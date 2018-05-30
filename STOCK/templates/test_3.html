@@ -10,40 +10,59 @@
 	<meta name="author" content="hencework"/>
 
   <!-- Favicon -->
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static "favicon.ico"%}">
+  <link rel="icon" href="{% static "favicon.ico" type="image/x-icon">
 
   <!-- Bootstrap Colorpicker CSS -->
-  <link href="{% static "vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- select2 CSS -->
-  <link href="{% static "vendors/bower_components/select2/dist/css/select2.min.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- switchery CSS -->
-  <link href="{% static "vendors/bower_components/switchery/dist/switchery.min.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- bootstrap-select CSS -->
-  <link href="{% static "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- bootstrap-tagsinput CSS -->
-  <link href="{% static "vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- bootstrap-touchspin CSS -->
-  <link href="{% static "vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- multi-select CSS -->
-  <link href="{% static "vendors/bower_components/multiselect/css/multi-select.css"%}"  rel="stylesheet" type="text/css"/>
-
-  <!-- Bootstrap Switches CSS -->
-  <link href="{% static "vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"%}"  rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css"%}" rel="stylesheet" type="text/css"/>
 
   <!-- Bootstrap Datetimepicker CSS -->
-  <link href="{% static "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"%}"  rel="stylesheet" type="text/css"/>
+  <link href="{% static "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"%}" rel="stylesheet" type="text/css"/>
 
-
+  <!-- Bootstrap Daterangepicker CSS -->
+  <link href="{% static "vendors/bower_components/bootstrap-daterangepicker/daterangepicker.css"%}" rel="stylesheet" type="text/css"/>
 
   <!-- Custom CSS -->
   <link href="{% static "dist/css/style.css"%}" rel="stylesheet" type="text/css">
+
+  <!-- select2 CSS -->
+  <link href="{% static "vendors/bower_components/select2/dist/css/select2.min.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- switchery CSS -->
+  <link href="{% static "vendors/bower_components/switchery/dist/switchery.min.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- bootstrap-select CSS -->
+  <link href="{% static "vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- bootstrap-tagsinput CSS -->
+  <link href="{% static "vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- bootstrap-touchspin CSS -->
+  <link href="{% static "vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- multi-select CSS -->
+  <link href="{% static "vendors/bower_components/multiselect/css/multi-select.css"%}" rel="stylesheet" type="text/css"/>
+
+  <!-- Bootstrap Switches CSS -->
+  <link href="{% static "vendors/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"%}" rel="stylesheet" type="text/css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="{% static "vender/chart.js/Chart.js"%}"></script>
+  <!--<script src="{% static "vender/chart.js/utils.js"%}"></script>-->
+  <style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -119,9 +138,6 @@
 		<!-- Left Sidebar Menu -->
 		<div class="fixed-sidebar-left">
 			<ul class="nav navbar-nav side-nav nicescroll-bar">
-
-
-
 				<li><hr class="light-grey-hr mb-10"/></li>
 				<li class="navigation-header">
 					<span>Menu</span>
@@ -136,435 +152,10 @@
 
 					</ul>
 				</li>
-
-
-
 		</div>
 		<!-- /Left Sidebar Menu -->
 
-		<!-- Right Sidebar Menu -->
-		<div class="fixed-sidebar-right">
-			<ul class="right-sidebar">
-				<li>
-					<div  class="tab-struct custom-tab-1">
-						<ul role="tablist" class="nav nav-tabs" id="right_sidebar_tab">
-							<li class="active" role="presentation"><a aria-expanded="true"  data-toggle="tab" role="tab" id="chat_tab_btn" href="#chat_tab">chat</a></li>
-							<li role="presentation" class=""><a  data-toggle="tab" id="messages_tab_btn" role="tab" href="#messages_tab" aria-expanded="false">messages</a></li>
-							<li role="presentation" class=""><a  data-toggle="tab" id="todo_tab_btn" role="tab" href="#todo_tab" aria-expanded="false">todo</a></li>
-						</ul>
-						<div class="tab-content" id="right_sidebar_content">
-							<div  id="chat_tab" class="tab-pane fade active in" role="tabpanel">
-								<div class="chat-cmplt-wrap">
-									<div class="chat-box-wrap">
-										<div class="add-friend">
-											<a href="javascript:void(0)" class="inline-block txt-grey">
-												<i class="zmdi zmdi-more"></i>
-											</a>
-											<span class="inline-block txt-dark">users</span>
-											<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-plus"></i></a>
-											<div class="clearfix"></div>
-										</div>
-										<form role="search" class="chat-search pl-15 pr-15 pb-15">
-											<div class="input-group">
-												<input type="text" id="example-input1-group2" name="example-input1-group2" class="form-control" placeholder="Search">
-												<span class="input-group-btn">
-												<button type="button" class="btn  btn-default"><i class="zmdi zmdi-search"></i></button>
-												</span>
-											</div>
-										</form>
-										<div id="chat_list_scroll">
-											<div class="nicescroll-bar">
-												<ul class="chat-list-wrap">
-													<li class="chat-list">
-														<div class="chat-body">
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Clay Masse</span>
-																		<span class="time block truncate txt-grey">No one saves us but ourselves.</span>
-																	</div>
-																	<div class="status away"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user1.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Evie Ono</span>
-																		<span class="time block truncate txt-grey">Unity is strength</span>
-																	</div>
-																	<div class="status offline"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user2.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Madalyn Rascon</span>
-																		<span class="time block truncate txt-grey">Respect yourself if you would have others respect you.</span>
-																	</div>
-																	<div class="status online"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user3.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Mitsuko Heid</span>
-																		<span class="time block truncate txt-grey">I’m thankful.</span>
-																	</div>
-																	<div class="status online"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Ezequiel Merideth</span>
-																		<span class="time block truncate txt-grey">Patience is bitter.</span>
-																	</div>
-																	<div class="status offline"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user1.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Jonnie Metoyer</span>
-																		<span class="time block truncate txt-grey">Genius is eternal patience.</span>
-																	</div>
-																	<div class="status online"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user2.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Angelic Lauver</span>
-																		<span class="time block truncate txt-grey">Every burden is a blessing.</span>
-																	</div>
-																	<div class="status away"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user3.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Priscila Shy</span>
-																		<span class="time block truncate txt-grey">Wise to resolve, and patient to perform.</span>
-																	</div>
-																	<div class="status online"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-															<a  href="javascript:void(0)">
-																<div class="chat-data">
-																	<img class="user-img img-circle"  src="{% static "dist/img/user4.png"%}" alt="user"/>
-																	<div class="user-data">
-																		<span class="name block capitalize-font">Linda Stack</span>
-																		<span class="time block truncate txt-grey">Our patience will achieve more than our force.</span>
-																	</div>
-																	<div class="status away"></div>
-																	<div class="clearfix"></div>
-																</div>
-															</a>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="recent-chat-box-wrap">
-										<div class="recent-chat-wrap">
-											<div class="panel-heading ma-0">
-												<div class="goto-back">
-													<a  id="goto_back" href="javascript:void(0)" class="inline-block txt-grey">
-														<i class="zmdi zmdi-chevron-left"></i>
-													</a>
-													<span class="inline-block txt-dark">ryan</span>
-													<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-more"></i></a>
-													<div class="clearfix"></div>
-												</div>
-											</div>
-											<div class="panel-wrapper collapse in">
-												<div class="panel-body pa-0">
-													<div class="chat-content">
-														<ul class="nicescroll-bar pt-20">
-															<li class="friend">
-																<div class="friend-msg-wrap">
-																	<img class="user-img img-circle block pull-left"  src="{% static "dist/img/user.png"%}" alt="user"/>
-																	<div class="msg pull-left">
-																		<p>Hello Jason, how are you, it's been a long time since we last met?</p>
-																		<div class="msg-per-detail text-right">
-																			<span class="msg-time txt-grey">2:30 PM</span>
-																		</div>
-																	</div>
-																	<div class="clearfix"></div>
-																</div>
-															</li>
-															<li class="self mb-10">
-																<div class="self-msg-wrap">
-																	<div class="msg block pull-right"> Oh, hi Sarah I'm have got a new job now and is going great.
-																		<div class="msg-per-detail text-right">
-																			<span class="msg-time txt-grey">2:31 pm</span>
-																		</div>
-																	</div>
-																	<div class="clearfix"></div>
-																</div>
-															</li>
-															<li class="self">
-																<div class="self-msg-wrap">
-																	<div class="msg block pull-right">  How about you?
-																		<div class="msg-per-detail text-right">
-																			<span class="msg-time txt-grey">2:31 pm</span>
-																		</div>
-																	</div>
-																	<div class="clearfix"></div>
-																</div>
-															</li>
-															<li class="friend">
-																<div class="friend-msg-wrap">
-																	<img class="user-img img-circle block pull-left"  src="{% static "dist/img/user.png"%}" alt="user"/>
-																	<div class="msg pull-left">
-																		<p>Not too bad.</p>
-																		<div class="msg-per-detail  text-right">
-																			<span class="msg-time txt-grey">2:35 pm</span>
-																		</div>
-																	</div>
-																	<div class="clearfix"></div>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="input-group">
-														<input type="text" id="input_msg_send" name="send-msg" class="input-msg-send form-control" placeholder="Type something">
-														<div class="input-group-btn emojis">
-															<div class="dropup">
-																<button type="button" class="btn  btn-default  dropdown-toggle" data-toggle="dropdown" ><i class="zmdi zmdi-mood"></i></button>
-																<ul class="dropdown-menu dropdown-menu-right">
-																	<li><a href="javascript:void(0)">Action</a></li>
-																	<li><a href="javascript:void(0)">Another action</a></li>
-																	<li class="divider"></li>
-																	<li><a href="javascript:void(0)">Separated link</a></li>
-																</ul>
-															</div>
-														</div>
-														<div class="input-group-btn attachment">
-															<div class="fileupload btn  btn-default"><i class="zmdi zmdi-attachment-alt"></i>
-																<input type="file" class="upload">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div id="messages_tab" class="tab-pane fade" role="tabpanel">
-								<div class="message-box-wrap">
-									<div class="msg-search">
-										<a href="javascript:void(0)" class="inline-block txt-grey">
-											<i class="zmdi zmdi-more"></i>
-										</a>
-										<span class="inline-block txt-dark">messages</span>
-										<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-search"></i></a>
-										<div class="clearfix"></div>
-									</div>
-									<div class="set-height-wrap">
-										<div class="streamline message-box nicescroll-bar">
-											<a href="javascript:void(0)">
-												<div class="sl-item unread-message">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Clay Masse</span>
-														<span class="inline-block font-11  pull-right message-time">12:28 AM</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Themeforest message sent via your envato market profile</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsu messm quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user1.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Evie Ono</span>
-														<span class="inline-block font-11  pull-right message-time">1 Feb</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Pogody theme support</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user2.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Madalyn Rascon</span>
-														<span class="inline-block font-11  pull-right message-time">31 Jan</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Congratulations from design nominees</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item unread-message">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user3.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Ezequiel Merideth</span>
-														<span class="inline-block font-11  pull-right message-time">29 Jan</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Themeforest item support message</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item unread-message">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user4.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Jonnie Metoyer</span>
-														<span class="inline-block font-11  pull-right message-time">27 Jan</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Help with beavis contact form</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Priscila Shy</span>
-														<span class="inline-block font-11  pull-right message-time">19 Jan</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject">Your uploaded theme is been selected</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-											<a href="javascript:void(0)">
-												<div class="sl-item">
-													<div class="sl-avatar avatar avatar-sm avatar-circle">
-														<img class="img-responsive img-circle" src="{% static "dist/img/user1.png"%}" alt="avatar"/>
-													</div>
-													<div class="sl-content">
-														<span class="inline-block capitalize-font   pull-left message-per">Linda Stack</span>
-														<span class="inline-block font-11  pull-right message-time">13 Jan</span>
-														<div class="clearfix"></div>
-														<span class=" truncate message-subject"> A new rating has been received</span>
-														<p class="txt-grey truncate">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-													</div>
-												</div>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div  id="todo_tab" class="tab-pane fade" role="tabpanel">
-								<div class="todo-box-wrap">
-									<div class="add-todo">
-										<a href="javascript:void(0)" class="inline-block txt-grey">
-											<i class="zmdi zmdi-more"></i>
-										</a>
-										<span class="inline-block txt-dark">todo list</span>
-										<a href="javascript:void(0)" class="inline-block text-right txt-grey"><i class="zmdi zmdi-plus"></i></a>
-										<div class="clearfix"></div>
-									</div>
-									<div class="set-height-wrap">
-										<!-- Todo-List -->
-										<ul class="todo-list nicescroll-bar">
-											<li class="todo-item">
-												<div class="checkbox checkbox-default">
-													<input type="checkbox" id="checkbox01"/>
-													<label for="checkbox01">Record The First Episode</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-											<li class="todo-item">
-												<div class="checkbox checkbox-pink">
-													<input type="checkbox" id="checkbox02"/>
-													<label for="checkbox02">Prepare The Conference Schedule</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-											<li class="todo-item">
-												<div class="checkbox checkbox-warning">
-													<input type="checkbox" id="checkbox03" checked/>
-													<label for="checkbox03">Decide The Live Discussion Time</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-											<li class="todo-item">
-												<div class="checkbox checkbox-success">
-													<input type="checkbox" id="checkbox04" checked/>
-													<label for="checkbox04">Prepare For The Next Project</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-											<li class="todo-item">
-												<div class="checkbox checkbox-danger">
-													<input type="checkbox" id="checkbox05" checked/>
-													<label for="checkbox05">Finish Up AngularJs Tutorial</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-											<li class="todo-item">
-												<div class="checkbox checkbox-purple">
-													<input type="checkbox" id="checkbox06" checked/>
-													<label for="checkbox06">Finish Infinity Project</label>
-												</div>
-											</li>
-											<li>
-												<hr class="light-grey-hr"/>
-											</li>
-										</ul>
-										<!-- /Todo-List -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-		<!-- /Right Sidebar Menu -->
-
-
-
+		<!-- Main Content -->
 		<!-- Main Content -->
 		<div class="page-wrapper">
       <div class="container-fluid">
@@ -592,266 +183,492 @@
         <div class="row">
           <div class="col-md-6">
             <div class="panel panel-default card-view">
-              <div class="panel-heading">
-                <div class="pull-left">
-                  <h6 class="panel-title txt-dark">Form with icon</h6>
-                </div>
-                <div class="clearfix"></div>
-              </div>
               <div class="panel-wrapper collapse in">
                 <div class="panel-body">
                   <div class="row">
-                    <div class="col-sm-12 col-xs-12">
-                      <div class="form-wrap">
-                        <form>
-                          <div class="form-group">
-                            <label class="control-label mb-10" for="exampleInputuname_1">User Name</label>
-                            <div class="input-group">
-                              <div class="input-group-addon"><i class="icon-user"></i></div>
-                              <input type="text" class="form-control" id="exampleInputuname_1" placeholder="Username">
+                    <div class="col-sm-12 col-xs-12" id="box">
+						<div class="form-group">
+                            <div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div class="form-wrap">
+										<div class="panel-wrapper collapse in">
+											<div class="panel-body">
+												<div class="form-wrap">
+													<form>
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label mb-10" for="exampleInputpwd_1">투자기간</label>
+                                                                    <div class="input-group">
+                                                                        <div class="input-group-addon"><i class="icon-clock"></i></div>
+                                                                        <input class="form-control input-daterange-datepicker" id="startenddate" type="text" name="daterange" value="01/01/2016 - 01/31/2016"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-10" for="exampleInputpwd_1">초기자금(원)</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="icon-credit-card"></i></div>
+                                                        <input id="initial_money" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-10" for="exampleInputpwd_2">보유할 종목 수</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="icon-list"></i></div>
+                                                        <input id="number_keep" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="control-label mb-10" for="exampleInputpwd_2">갱신 주기</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon"><i class="icon-bell"></i></div>
+                                                        <input id="timing_period" type="text" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-wrapper collapse in">
+                                        <div class="panel-body">
+                                            <div class="col-sm-12" id="select_box">
+                                                <div class="panel-heading">
+                                                    <div class="pull-left">
+                                                        <h6 class="panel-title txt-dark">보유가능 종목선택</h6>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <select id="public-methods" name="public-methods[]" multiple='multiple'>
+
+                                                </select>
+                                                <!--<div class="button-box">
+													<a id="select-all" class="btn btn-danger btn-outline mr-10 mt-15" href="#">select all</a>
+													<a id="deselect-all" class="btn btn-info btn-outline mr-10 mt-15" href="#">deselect all</a>
+													<a id="add-option" class="btn btn-success btn-outline mr-10 mt-15" href="#">Add option</a>
+													<a id="refresh" class="btn btn-warning btn-outline mr-10 mt-15" href="#">refresh</a>
+												</div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-anim" id="submit_button">
+                                        <!--<a role="button" data-toggle="collapse" href="#collapse_1" aria-expanded="false">-->
+                                        <i class="icon-rocket"></i>
+                                        <span class="btn-text" id="submit_button_text">Submit</span>
+                                    </button>
+                                    <!--<button type="submit" class="btn btn-default">Reset</button>-->
+
+                                </div>
                             </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label mb-10" for="exampleInputEmail_1">Email address</label>
-                            <div class="input-group">
-                              <div class="input-group-addon"><i class="icon-envelope-open"></i></div>
-                              <input type="email" class="form-control" id="exampleInputEmail_1" placeholder="Enter email">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
-                            <div class="input-group">
-                              <div class="input-group-addon"><i class="icon-lock"></i></div>
-                              <input type="password" class="form-control" id="exampleInputpwd_1" placeholder="Enter email">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label mb-10" for="exampleInputpwd_2">Confirm Password</label>
-                            <div class="input-group">
-                              <div class="input-group-addon"><i class="icon-lock"></i></div>
-                              <input type="password" class="form-control" id="exampleInputpwd_2" placeholder="Enter email">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label mb-10">Gender</label>
-                            <div>
-                              <div class="radio">
-                                <input type="radio" name="radio1" id="radio_1" value="option1" checked="">
-                                <label for="radio_1">
-                                M
-                                </label>
-                              </div>
-                              <div class="radio">
-                                <input type="radio" name="radio1" id="radio_2" value="option2" checked="">
-                                <label for="radio_2">
-                                F
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="checkbox checkbox-success">
-                              <input id="checkbox_1" type="checkbox">
-                              <label for="checkbox_1"> Remember me </label>
-                            </div>
-                          </div>
-                          <button type="submit" class="btn btn-success mr-10">Submit</button>
-                          <button type="submit" class="btn btn-default">Cancel</button>
-                        </form>
-                      </div>
+                        </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+
+          <div class="col-lg-12">
+              <div class="panel panel-default card-view" id="cardview">
+                  <!--<div class="panel-heading">
+                      <div class="pull-left" role="tab">
+                          <h6 class="panel-title txt-dark" id="lineheader">line Chart</h6>
+                          <!--<a role="button" data-toggle="collapse" href="#collapse_1" aria-expanded="false">-->
+                              <!--<h6 class="panel-title txt-dark">line Chart</h6>
+                          </a>
+                      </div>
+                      <div class="clearfix"></div>
+                  </div>-->
+
+                          <!--<div class="flot-container collapse"  id="collapse_1">-->
+                             <!--<div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>초기 자금</th>
+                                            <th>결과 자금</th>
+                                            <th>총 수익률</th>
+                                            <th>MDD</th>
+                                            <th>일일 최악의 수익률</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="txt-dark">
+                                            <td id="table_initial_money"></td>
+                                            <td id="table_final_money"></td>
+                                            <td id="table_final_benefit"></td>
+                                            <td id="table_mdd"></td>
+                                            <td id="table_worst_benefit_day"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                              <div class="wrapper"><canvas id="myChart"></canvas></div>
+                              <br />
+                              <br />
+                              <br />
+                              <br />-->
+                          <!--</div>-->
+              </div>
           </div>
 
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Totals</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>BS-200</td>
-                  <td>$10.99</td>
-                  <td>1</td>
-                  <td>$10.99</td>
-                </tr>
-                <tr>
-                  <td>BS-400</td>
-                  <td>$20.00</td>
-                  <td>3</td>
-                  <td>$60.00</td>
-                </tr>
-                <tr>
-                  <td>BS-1000</td>
-                  <td>$600.00</td>
-                  <td>1</td>
-                  <td>$600.00</td>
-                </tr>
-                <tr class="txt-dark">
-                  <td></td>
-                  <td></td>
-                  <td>Subtotal</td>
-                  <td>$670.99</td>
-                </tr>
-                <tr class="txt-dark">
-                  <td></td>
-                  <td></td>
-                  <td>Shipping</td>
-                  <td>$15</td>
-                </tr>
-                <tr class="txt-dark">
-                  <td></td>
-                  <td></td>
-                  <td>Total</td>
-                  <td>$685.99</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="panel panel-default card-view">
-                <div class="panel-heading">
-                  <div class="pull-left">
-                    <h6 class="panel-title txt-dark">line Chart</h6>
+  <!-- data range form -->
+          <form class="collapse">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label class="control-label mb-10 text-left">date time pick</label>
+                          <div class='input-group date' id='datetimepicker1'>
+                              <input type='text' class="form-control" />
+                          </div>
+                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="panel-wrapper collapse in">
-                  <div id="morris_extra_line_chart" class="morris-chart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="panel panel-default card-view">
-                <div class="panel-heading">
-                  <div class="pull-left">
-                    <h6 class="panel-title txt-dark">bar Chart</h6>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                          <label class="control-label mb-10 text-left">time pick</label>
+                          <div class='input-group date' id='datetimepicker2'>
+                              <input type='text' class="form-control" />
+                          </div>
+                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="panel-wrapper collapse in">
-                  <div id="morris_extra_bar_chart" class="morris-chart"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="panel panel-default card-view">
-              <div class="panel-heading">
-                <div class="pull-left">
-                  <h6 class="panel-title txt-dark">Multiple Select (Pre-selected options)</h6>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-wrapper collapse in">
-                <div class="panel-body">
-                  <p class="text-muted"> Use a <code>select multiple</code> as your input element.</p>
-                  <div class="row mt-40">
-                    <div class="col-sm-12">
-                      <h5 class="box-title"></h5>
-                      <select id='pre-selected-options' multiple='multiple'>
-                        <option value='elem_1'>elem 1</option>
-                        <option value='elem_2'>elem 2</option>
-                        <option value='elem_3'>elem 3</option>
-                        <option value='elem_4' selected>elem 4</option>
-                        <option value='elem_5' selected>elem 5</option>
-                        <option value="elem_6">elem 6</option>
-                        <option value="elem_7">elem 7</option>
-                        <option value="elem_8">elem 8</option>
-                        <option value="elem_9">elem 9</option>
-                        <option value="elem_10">elem 10</option>
-                        <option value="elem_11">elem 11</option>
-                        <option value="elem_12">elem 12</option>
-                        <option value="elem_13">elem 13</option>
-                        <option value="elem_14">elem 14</option>
-                        <option value="elem_15">elem 15</option>
-                        <option value="elem_16">elem 16</option>
-                        <option value="elem_17">elem 17</option>
-                        <option value="elem_18">elem 18</option>
-                        <option value="elem_19">elem 19</option>
-                        <option value="elem_20">elem 20</option>
-                      </select>
-                    </div>
+                  <div class="col-sm-6">
+                      <label class="control-label mb-10 text-left">inline date pick</label>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker4'></div>
+                      </div>
                   </div>
-                </div>
+                  <div class="col-sm-6">
+                      <label class="control-label mb-10 text-left">inline date time pick</label>
+                      <div class="form-group">
+                          <div class='input-group date' id='datetimepicker3'></div>
+                      </div>
+                  </div>
               </div>
-            </div>
-          </div>
+          </form>
+      <!-- /data range form -->
+
       <!-- Footer -->
       <footer class="footer container-fluid pl-30 pr-30">
         <div class="row">
           <div class="col-sm-12">
-            <p>2017 &copy; Hound. Pampered by Hencework</p>
+            <!--<p>2017 &copy; Hound. Pampered by Hencework</p>-->
           </div>
         </div>
       </footer>
       <!-- /Footer -->
-
-    </div>
-		</div>
+      </div>
+        </div>
         <!-- /Main Content -->
-
     </div>
-</div>
+    <!-- /Main Content -->
+    </div>
+    </div>
+
+
     <!-- jQuery -->
-    <script src="{% static "vendors/bower_components/jquery/dist/jquery.min.js"%}" type="text/javascript" ></script>
-    <!-- Morris Charts JavaScript -->
-    <script src="{% static "vendors/bower_components/raphael/raphael.min.js"%}" type="text/javascript" ></script>
-    <script src="{% static "vendors/bower_components/morris.js/morris.min.js"%}" type="text/javascript" ></script>
-    <script src="{% static "dist/js/morris-data.js"%}" type="text/javascript" ></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static "vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"%}" type="text/javascript"></script>
-
-
-
-    <!-- Bootstrap Colorpicker JavaScript -->
-    <script src="{% static "vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"%}" type="text/javascript"></script>
-
-
-
-    <!-- Select2 JavaScript -->
-    <script src="{% static "vendors/bower_components/select2/dist/js/select2.full.min.js"%}" type="text/javascript"></script>
-
-    <!-- Bootstrap Select JavaScript -->
-    <script src="{% static "vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"%}" type="text/javascript"></script>
+    <script src="{% static "vendors/bower_components/jquery/dist/jquery.min.js"%}"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="{% static "vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"%}"></script>
+    <!-- Moment JavaScript -->
+    <script type="text/javascript" src="{% static "vendors/bower_components/moment/min/moment-with-locales.min.js"%}"></script>
+	<!-- Bootstrap Colorpicker JavaScript -->
+	<script src="{% static "vendors/bower_components/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"%}"></script>
+    <!-- Bootstrap Datetimepicker JavaScript -->
+    <script type="text/javascript" src="{% static "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"%}"></script>
+	<!-- Bootstrap Daterangepicker JavaScript -->
+	<script src="{% static "vendors/bower_components/bootstrap-daterangepicker/daterangepicker.js"%}"></script>
+    <!-- Form Picker Init JavaScript -->
+    <script src="{% static "dist/js/form-picker-data.js"%}"></script>
+	<!-- Slimscroll JavaScript -->
+	<script src="{% static "dist/js/jquery.slimscroll.js"%}"></script>
+    <!-- Fancy Dropdown JS -->
+    <script src="{% static "dist/js/dropdown-bootstrap-extended.js"%}"></script>
+	<!-- Owl JavaScript -->
+	<script src="{% static "vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"%}"></script>
+    <!-- Switchery JavaScript -->
+    <script src="{% static "vendors/bower_components/switchery/dist/switchery.min.js"%}"></script>
+	<!-- Init JavaScript -->
+	<script src="{% static "dist/js/init.js"%}"></script>
+    <!--comma -->
+    <script src="{% static "vendors/comma.js"%}"></script>
+    <!-- Flot Charts JavaScript -->
+	<script src="{% static "vendors/bower_components/Flot/excanvas.min.js"%}"></script>
+    <script src="{% static "vendors/bower_components/Flot/jquery.flot.js"%}"></script>
+	<script src="{% static "vendors/bower_components/Flot/jquery.flot.pie.js"%}"></script>
+    <script src="{% static "vendors/bower_components/Flot/jquery.flot.resize.js"%}"></script>
+	<script src="{% static "vendors/bower_components/Flot/jquery.flot.time.js"%}"></script>
+    <script src="{% static "vendors/bower_components/Flot/jquery.flot.stack.js"%}"></script>
+	<script src="{% static "vendors/bower_components/Flot/jquery.flot.crosshair.js"%}"></script>
+    <script src="{% static "vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"%}"></script>
+    <script src="{% static "dist/js/flot-data.js"%}"></script>
 
     <!-- Bootstrap Tagsinput JavaScript -->
-    <script src="{% static "vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"%}" type="text/javascript"></script>
+    <script src="{% static "vendors/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"%}"></script>
 
     <!-- Bootstrap Touchspin JavaScript -->
-    <script src="{% static "vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"%}" type="text/javascript"></script>
+    <script src="{% static "vendors/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"%}"></script>
 
+    <!-- multiselect에 필요..-->
     <!-- Multiselect JavaScript -->
-    <script src="{% static "vendors/bower_components/multiselect/js/jquery.multi-select.js"%}" type="text/javascript"></script>
-
+    <script src="{% static "vendors/bower_components/multiselect/js/jquery.multi-select.js"%}"></script>
+    <!-- Select2 JavaScript -->
+    <script src="{% static "vendors/bower_components/select2/dist/js/select2.full.min.js"%}"></script>
+    <!-- Bootstrap Select JavaScript -->
+    <script src="{% static "vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"%}"></script>
+    <!-- Form Advance Init JavaScript -->
+    <script src="{% static "dist/js/form-advance-data.js"%}"></script>
 
     <!-- Bootstrap Switch JavaScript -->
-    <script src="{% static "vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"%}" type="text/javascript"></script>
-
-    <!-- Bootstrap Datetimepicker JavaScript -->
-    <script src="{% static "vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"%}" type="text/javascript"></script>
-
-    <!-- Form Advance Init JavaScript -->
-    <script src="{% static "dist/js/form-advance-data.js"%}" type="text/javascript"></script>
-
+    <script src="{% static "vendors/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"%}"></script>
 
     <!-- Fancy Dropdown JS -->
-    <script src="{% static "dist/js/dropdown-bootstrap-extended.js"%}" type="text/javascript"></script>
-
+    <!--<script src="{% static "dist/js/dropdown-bootstrap-extended.js"%}"></script>-->
     <!-- Owl JavaScript -->
-    <script src="{% static "vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"%}" type="text/javascript"></script>
-
+    <script src="{% static "vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"%}"></script>
     <!-- Init JavaScript -->
-    <script src="{% static "dist/js/init.js"%}" type="text/javascript"></script>
+    <script src="{% static "dist/js/init.js"%}"></script>
+    <script src="{% static "vendors/comma.js"%}"></script>
+
+      <script>
+$(document).ready(function(){
+
+    function addHTMLClass(item, classname) {
+    var obj = item
+    if (typeof item=="string") {
+        obj = document.getElementById(item)
+    }
+    obj.className += " " + classname
+}
+
+function removeHTMLClass(item, classname) {
+    var obj = item
+    if (typeof item=="string") {
+        obj = document.getElementById(item)
+    }
+    var classes = ""+obj.className
+    while (classes.indexOf(classname)>-1) {
+        classes = classes.replace (classname, "")
+    }
+    obj.className = classes
+}
+
+    function addResultBox(){
+        if(document.getElementById('myChart')==null){
+            var div_root = document.createElement( 'div' );
+        addHTMLClass(div_root, "table-responsive");
+
+        var table_root = document.createElement( 'table' );
+        addHTMLClass(table_root, "table table-hover");
+
+        var table_header = document.createElement( 'thead' );
+
+        var tr_head = document.createElement( 'tr' );
+        var th1 = document.createElement( 'th' );
+        th1.append("초기 자금");
+        var th2 = document.createElement( 'th' );
+        th2.append("결과 자금");
+        var th3 = document.createElement( 'th' );
+        th3.append("총 수익률");
+        var th4 = document.createElement( 'th' );
+        th4.append("MDD");
+        var th5 = document.createElement( 'th' );
+        th5.append("일일 최악의 수익률");
+        var th6 = document.createElement( 'th' );
+        th6.append("일일 최상의 수익률");
+
+        tr_head.appendChild(th1);
+        tr_head.appendChild(th2);
+        tr_head.appendChild(th3);
+        tr_head.appendChild(th4);
+        tr_head.appendChild(th5);
+        tr_head.appendChild(th6);
+
+        table_header.appendChild(tr_head);
+
+        var table_body = document.createElement( 'tbody' );
+        var tr_body = document.createElement( 'tr' );
+        addHTMLClass(tr_body, "txt-dark");
+
+        var td1 = document.createElement( 'td' );
+        var td2 = document.createElement( 'td' );
+        var td3 = document.createElement( 'td' );
+        var td4 = document.createElement( 'td' );
+        var td5 = document.createElement( 'td' );
+        var td6 = document.createElement( 'td' );
+        td1.id="table_initial_money";
+        td2.id="table_final_money";
+        td3.id="table_final_benefit";
+        td4.id="table_mdd";
+        td5.id="table_worst_benefit_day";
+        td6.id="table_best_benefit_day";
+
+        tr_body.appendChild(td1);
+        tr_body.appendChild(td2);
+        tr_body.appendChild(td3);
+        tr_body.appendChild(td4);
+        tr_body.appendChild(td5);
+        tr_body.appendChild(td6);
+
+        table_body.appendChild(tr_body);
+
+        table_root.appendChild(table_header);
+        table_root.appendChild(table_body);
+
+        div_root.appendChild(table_root);
+
+        $('#cardview').append(div_root);
+
+        var div_root2 = document.createElement( 'div' );
+        addHTMLClass(div_root2, "wrapper");
+        var canvas = document.createElement( 'canvas' );
+        canvas.id = "myChart";
+
+        div_root2.appendChild(canvas);
+        $('#cardview').append(div_root2);
+        }
+    }
+
+    $.ajax({
+            url:'./chartdata',
+            success:function(data){
+                console.log(data);
+                //data = decodeURI(data) // 이건 안먹음.
+                data = decodeURIComponent(data);
+                var obj = JSON.parse(data);
+                console.log(obj[0]);    // obj[0]["code"] 이런식으로 사용ㅎㅎ..
+
+                $("#public-methods").empty();
+                var i;
+                for (i = 0; i < obj.length; i++) {
+                    $("#public-methods").append("<option value=" + obj[i]["code"] + ">"+ obj[i]["name"] +"</option>");
+                }
+                $('#public-methods').multiSelect('refresh');
+            }
+    });
+
+    $("#submit_button").click(function(){
+        var startenddate = $('#startenddate').val();
+        var initial_money = $('#initial_money').val();
+        var number_keep = $('#number_keep').val();
+        var timing_period = $('#timing_period').val();
+        var consider_item__list = $('#public-methods').val()//$('#consider_item__list').val();
+
+        console.log( startenddate + " - " + initial_money + " - " + number_keep + " - " + timing_period + " - " + consider_item__list);
+
+        if(initial_money=="" || number_keep =="" || timing_period=="" || consider_item__list==null){
+            console.log("전부 다 고르지 않았음 !");
+            alert("전부 다 고르지 않았음 !");
+        }
+        else if( number_keep > $('#public-methods').val().length ){
+            console.log("'보유할 종목 수'가 선택한 종목 갯수보다 크면 안됨!");
+            alert("'보유할 종목 수'가 선택한 종목 갯수보다 크면 안됨!");
+        }
+        else{
+            $.ajax({
+            url:'./chartdata_graph?' + 'startenddate=' + startenddate + '&'
+                + 'initial_money=' + initial_money + '&' + 'number_keep='
+                + number_keep + '&' + 'timing_period=' + timing_period + '&' + 'consider_item__list=' + consider_item__list ,
+            success:function(data){
+
+                addResultBox();
+
+                data = decodeURIComponent(data)
+                var obj = JSON.parse(data);
+                console.log(obj["evaluation_money"]);    // obj[0]["code"] 이런식으로 사용ㅎㅎ..
+                console.log(obj["date"]);
+
+                var ctx = document.getElementById("myChart").getContext('2d');
+	            var myChart = new Chart(ctx, {
+		            type: 'line',
+		            data: {
+			            labels: obj["date"],//["Redd", "Blue", "Yellow", "Green", "Purple", "Orange"], // x Axes
+			            datasets: [{
+				            label: '# of Price',
+				            data: obj["evaluation_money"],//[12, 19, 3, 5, 2, 3],										// y Axes
+				            backgroundColor: [
+				    	        'rgba(75, 192, 192, 0.2)',
+				            ],
+				            borderColor: [
+					            'rgba(255, 206, 86, 1)',
+				            ],
+				            borderWidth: 1,
+				            fill: false,
+				            type: 'line',
+				            lineTension: 0,
+                            pointRadius: 0,
+				            borderWidth: 2
+			            }]
+		            },
+		            options: {
+
+	            	}
+	            });
+
+	            $("#table_initial_money").empty();
+                $("#table_final_money").empty();
+                $("#table_final_benefit").empty();
+                $("#table_mdd").empty();
+                $("#table_worst_benefit_day").empty();
+                $("#table_best_benefit_day").empty();
+
+                $("#table_initial_money").append("<span>" + obj["initial_money"] + "원" + "</span>");
+                $("#table_final_money").append("<span>" + obj["final_money"] + "원" + "</span>");
+                $("#table_final_benefit").append("<span>" + obj["final_benefit"] + "%" + "</span>");
+                $("#table_mdd").append("<span>" + obj["mdd"] + "%" + "</span>");
+                $("#table_worst_benefit_day").append("<span>" + obj["worst_benefit_day"] + "%" + "</span>");
+                $("#table_best_benefit_day").append("<span>" + obj["best_benefit_day"] + "%" + "</span>");
+
+            }
+            });
+
+
+        }
+
+    });
+
+    //////////////////////////////////////////////////////////////////
+    // 테스트코드들 1..
+    /*$("#lineheader").click(function(){
+
+        // 내용 비우기.. refresh랑 같이 쓰자..!
+        $("#public-methods").empty();
+
+        ////$('#public-methods').multiSelect('destroy');
+        $('#public-methods').multiSelect('refresh');
+        $("#public-methods").append("<option value='elem_2'>elem 2</option>");
+        $('#public-methods').multiSelect('refresh');
+    });
+    // 테스트코드들 2..
+    $("#submit_button").click(function(){
+        var addIndex = document.getElementById("public-methods").length;
+        console.log("addIndex is " + addIndex);
+        //$('#public-methods').multiSelect('addOption', { value: addIndex, text: "test"+addIndex, index: addIndex });
+        //console.log("My Current selections : " + $( "#public-methods option:selected" ).text());
+
+        $("#public-methods").append("<option value=" + addIndex + ">" + "test"+addIndex + "</option>");
+        $('#public-methods').multiSelect('refresh');
+
+        var values = $('#public-methods').val();
+        console.log("My Current selections(values) : " + values);
+    });*/
+});
+</script>
 </body>
 
 </html>

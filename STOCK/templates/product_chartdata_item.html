@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title></title>
+    <!-- Favicon -->
+	<link rel="shortcut icon" href="{% static "favicon.ico"%}">
+	<link rel="icon" href="{% static "favicon.ico"%}" type="image/x-icon">
+
+	<!-- Custom CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="{% static "vender/chart.js/Chart.js"%}"></script>
+    <style>
+        div.ex1 {
+    width: 85%;
+    margin: auto;
+    border: 3px solid #73AD21;
+}
+
+div.ex2 {
+    max-width: 500px;
+    margin: auto;
+    border: 3px solid #73AD21;
+}
+tr, td {
+    padding: 15px
+}
+table {
+    border-spacing:10px
+}
+    </style>
+</head>
+<body>
+
+<div style="text-align:center">
+    <h1 id="headername">
+    </h1>
+</div>
+
+<div class="wrapper ex1">
+    <canvas id="myChart"></canvas>
+</div>
+<br />
+<div class="table-responsive ex2">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>날짜</th>
+            <th>종가</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+</div>
+
+    <!-- jQuery -->
+    <script src="{% static "vendors/bower_components/jquery/dist/jquery.min.js"%}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static "vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"%}"></script>
+
+    <!-- Piety JavaScript -->
+	<script src="{% static "vendors/bower_components/peity/jquery.peity.min.js"%}"></script>
+
+	<!-- Slimscroll JavaScript -->
+	<script src="{% static "dist/js/jquery.slimscroll.js"%}"></script>
+
+	<!-- Init JavaScript -->
+	<script src="{% static "dist/js/init.js"%}"></script>
+<script type='text/javascript'>
+
+    $(document).ready(function() {
+
+    var data = "{{ json_data|urlencode }}";
+    console.log(data);
+    data = decodeURIComponent(data);
+    var obj = JSON.parse(data);
+    console.log(""+obj["date"][0]);
+    console.log(""+obj["evaluation_money"][0]);
+
+    $('#headername').append(obj["headername"]);
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+	            var myChart = new Chart(ctx, {
+		            type: 'line',
+		            data: {
+			            labels: obj["date"],//["Redd", "Blue", "Yellow", "Green", "Purple", "Orange"], // x Axes
+			            datasets: [{
+				            label: '# of Price',
+				            data: obj["evaluation_money"],//[12, 19, 3, 5, 2, 3],										// y Axes
+				            backgroundColor: [
+				    	        'rgba(75, 192, 192, 0.2)',
+				            ],
+				            borderColor: [
+					            'rgba(255, 206, 86, 1)',
+				            ],
+				            borderWidth: 1,
+				            fill: false,
+				            type: 'line',
+				            lineTension: 0,
+                            pointRadius: 0,
+				            borderWidth: 2
+			            }]
+		            },
+		            options: {
+
+	            	}
+	            });
+
+    for(i=0; i<obj["date"].length; i++){
+        var tr = document.createElement( 'tr' );
+        var td_date = document.createElement( 'td' );
+        td_date.append(""+obj["date"][i]);
+        var td_endprice = document.createElement( 'td' );
+        td_endprice.append(""+obj["evaluation_money"][i]);
+
+        tr.appendChild(td_date);
+        tr.appendChild(td_endprice);
+
+        console.log(tr);
+        $('#tbody').append(tr);
+    }
+
+    });
+
+
+
+
+</script>
+</body>
+</html>
