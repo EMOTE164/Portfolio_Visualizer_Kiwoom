@@ -3,20 +3,17 @@ from sqlalchemy import create_engine
 from pandas import DataFrame, read_sql, concat
 import json
 
-
-
 #사용자에게 입력받는 데이터
-startDate = "20160201"
-endDate = "20161130"
+startDate = "20180401"
+endDate = "20180520"
 
 initial_money = "1000000"
 
 number_keep = "3"      # 보유할 종목의 수
 
-timing_period = "10"    # 매매시교체 주기
+timing_period = "5"    # 매매시교체 주기
 
 consider_item__list = ["000050", "000080", "000100", "000105", "000140"]
-
 
 try:
     items_df_list = []  # 관심종목에 담긴 종목의 데이터들
@@ -27,6 +24,10 @@ try:
     number_keep = int(number_keep)
     evaluation_balance = initial_money      #보유하고 있는 종목금액 + remain_balance
     remain_balance = initial_money          #매수 가능한 잔고에 남아있는 금액
+    mdd = 0
+    bestBenefitAtDay = 0
+    worstBenefitAtDay = 0
+    totalBenefit = 0
 
     #DB연결
     engine = create_engine('postgresql://postgres@localhost:9003/stockdb')#'postgresql://'+'POSTGRESQL_USER'+'POSTGRESQL_PASSWORD'+'POSTGRESQL_HOST_IP'+'POSTGRESQL_PORT'+'POSTGRESQL_DATABASE'
@@ -114,7 +115,7 @@ try:
     #과거 데이터에 대하여 매수, 매도 진행
     holding_item_indexs=[]   #보유중인 아이템의 인덱스
     tradeDetails_df = DataFrame(columns = ("date", "code", "action", "price", "volume", "total_money")) # 매수, 매도 거래내역이 저장되는 변수
-    dailyEvaluationValance_df = DataFrame(columns = ("date", "evaluation_money"))   #일별로 평가금액이 얼마인지가 저장되는 변수
+    dailyEvaluationValance_df = DataFrame(columns = ("date", "evaluation_money", "variability"))   #일별로 평가금액이 얼마인지가 저장되는 변수
     for i in range(0, len(items_df_list[0])):
         currentDay = items_df_list[0].loc[i][1]
         if(items_df_list[0].loc[i][8] != None):
@@ -150,7 +151,8 @@ try:
                     tradeDetails_df.loc[len(tradeDetails_df)] = rows            #row추가
                     holding_item_indexs.append((benefit_compare_list[j][0],volume))
 
-        #매일 여기서 자산이 얼마인지 확인.
+        # 매일 여기서 자산이 얼마인지 확인.
+        variability = 0.0
         if(len(holding_item_indexs) == 0):
             evaluation_balance = remain_balance
         else:
@@ -160,18 +162,33 @@ try:
                 volume = holding_item_indexs[j][1]
                 holding_money = holding_money + (currentPrice * volume)
             evaluation_balance = remain_balance + holding_money
-        rows = [currentDay, evaluation_balance]
+
+            if(len(dailyEvaluationValance_df) != 0):
+                yesterdayEB = dailyEvaluationValance_df.loc[len(dailyEvaluationValance_df)-1][1]
+                variability = round(float((evaluation_balance - yesterdayEB) / yesterdayEB) * 100, 2)
+                if (len(dailyEvaluationValance_df) == 1):
+                    bestBenefitAtDay = variability
+                    worstBenefitAtDay = variability
+                else:
+                    if(bestBenefitAtDay < variability):
+                        bestBenefitAtDay = variability
+                    if(worstBenefitAtDay > variability):
+                        worstBenefitAtDay = variability
+        rows = [currentDay, evaluation_balance, str(variability)]
         dailyEvaluationValance_df.loc[len(dailyEvaluationValance_df)] = rows    #row추가
 
     print(tradeDetails_df)
     print(dailyEvaluationValance_df)
+
+
+
 
     for i in range(0, len(tradeDetails_df)):
         print(tradeDetails_df.loc[i][0], tradeDetails_df.loc[i][1], tradeDetails_df.loc[i][2],
               tradeDetails_df.loc[i][3], tradeDetails_df.loc[i][4])
 
     for i in range(0, len(dailyEvaluationValance_df)):
-        print(dailyEvaluationValance_df.loc[i][0], dailyEvaluationValance_df.loc[i][1])
+        print(dailyEvaluationValance_df.loc[i][0], dailyEvaluationValance_df.loc[i][1], dailyEvaluationValance_df.loc[i][2])
 
 
     #Json변환
@@ -187,12 +204,47 @@ try:
     print(json_data)
 
 
-
     #MDD계산
+    previousPeakPrice = 0
+    optimumPrice = 0
 
+    for i in range(len(dailyEvaluationValance_df)):
+        currentPrice = dailyEvaluationValance_df.loc[i][1]
+        if (i == 0):
+            beforePrice = None
+            previousPeakPrice = currentPrice
+            optimumPrice = currentPrice
+        else:
+            beforePrice = dailyEvaluationValance_df.loc[i - 1][1]
 
-    #CAGR계산
+            if (beforePrice == currentPrice):
+                pass
+            elif (beforePrice < currentPrice and previousPeakPrice < currentPrice):
+                tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100, 2)  #소수 둘째점에서 반올림함.
+                if (mdd > tempMdd):
+                    mdd = tempMdd
+                    previousPeakPrice = currentPrice
+                    optimumPrice = currentPrice
+            elif (beforePrice > currentPrice):
+                optimumPrice = currentPrice
+            if (i == len(dailyEvaluationValance_df) - 1):  # 신고점이 달성되는 시점에만 연산되는 것 때문에 놓칠 수 있는 구간에 대한 mdd도 계산
+                tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100, 2)
+                if (mdd > tempMdd):
+                    mdd = tempMdd
 
+    print("mdd : "+str(mdd) + "%")
+
+    # 하루 최악의 수익률
+    print("bestBenefitAtDay : " + str(bestBenefitAtDay) + "%")
+
+    # 하루 최상의 수익률
+    print("worstBenefitAtDay : " + str(worstBenefitAtDay) + "%")
+
+    # 총수익률
+    totalBenefit = round(float((evaluation_balance - initial_money) / initial_money) * 100, 2)
+    print("initial_money : " + str(initial_money))
+    print("final_money : " + str(evaluation_balance))
+    print("final_money : " + str(totalBenefit) + "%")
 
 except Exception as e:
     print("error")
