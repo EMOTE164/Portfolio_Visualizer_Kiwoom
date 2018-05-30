@@ -74,9 +74,14 @@
 
         that.$selectableUl.on(action, '.ms-elem-selectable', function(){
           that.select($(this).data('ms-value'));
+          console.log("select : "+$(this).data('ms-value'));
+          $("#box").append("<a href='./chartdata_item?code="+ $(this).data('ms-value') + "&startenddate=" + $('#startenddate').val() + "&headername=" + $(this).text()
+                + "' target='_blank' id="+ $(this).data('ms-value') +">"+ $(this).data('ms-value') + ":" + $(this).text() +"<br /></a>");
         });
         that.$selectionUl.on(action, '.ms-elem-selection', function(){
           that.deselect($(this).data('ms-value'));
+          console.log("deselect : "+$(this).data('ms-value'));
+          $("#"+$(this).data('ms-value')).remove();
         });
 
         that.activeMouse(that.$selectionUl);
