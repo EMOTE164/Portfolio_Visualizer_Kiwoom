@@ -4,8 +4,8 @@ from pandas import DataFrame, read_sql, concat
 import json
 
 #사용자에게 입력받는 데이터
-startDate = "20180401"
-endDate = "20180520"
+startDate = "20170101"
+endDate = "20180501"
 
 initial_money = "1000000"
 
@@ -13,7 +13,7 @@ number_keep = "3"      # 보유할 종목의 수
 
 timing_period = "5"    # 매매시교체 주기
 
-consider_item__list = ["000050", "000080", "000100", "000105", "000140"]
+consider_item__list = ["260270", "266360", "266370", "266390"]
 
 try:
     items_df_list = []  # 관심종목에 담긴 종목의 데이터들
@@ -47,6 +47,7 @@ try:
     for itemNumber in range(0, len(items_df_list)):
         if (len(items_df_list[indexOflongestItem]) < len(items_df_list[itemNumber])):
             indexOflongestItem = itemNumber
+
 
     # 데이터의 길이를 동일하게 맞춰줌
     for itemNumber in range(0, len(items_df_list)):
@@ -112,11 +113,12 @@ try:
                     beforePrice = item.loc[i][5]
                     # print(str(i) + " beforePrice : " + str(beforePrice))
 
+
     #과거 데이터에 대하여 매수, 매도 진행
     holding_item_indexs=[]   #보유중인 아이템의 인덱스
     tradeDetails_df = DataFrame(columns = ("date", "code", "action", "price", "volume", "total_money")) # 매수, 매도 거래내역이 저장되는 변수
     dailyEvaluationValance_df = DataFrame(columns = ("date", "evaluation_money", "variability"))   #일별로 평가금액이 얼마인지가 저장되는 변수
-    for i in range(0, len(items_df_list[0])):
+    for i in range(0, len(items_df_list[0])):   #길이를 다 맞춰놔서 상관 없음.
         currentDay = items_df_list[0].loc[i][1]
         if(items_df_list[0].loc[i][8] != None):
             if(len(holding_item_indexs) != 0):   # 보유중인 종목이 있다면 매도처리
@@ -138,7 +140,13 @@ try:
                 if(items_df_list[itemNumber].loc[i][8] != None):
                     benefit_compare_list.append((itemNumber, float(items_df_list[itemNumber].loc[i][8])))
                     benefit_compare_list = sorted(benefit_compare_list, key=lambda x: x[1], reverse=True) # 수익률 순으로 정렬
-            for j in range(0, number_keep):
+
+            if(len(benefit_compare_list) > number_keep):
+                k = number_keep
+            else:
+                k = len(benefit_compare_list)
+
+            for j in range(0, k):
                 date = currentDay
                 code = items_df_list[benefit_compare_list[j][0]].loc[i][0]
                 action = "buy"
@@ -177,11 +185,6 @@ try:
         rows = [currentDay, evaluation_balance, str(variability)]
         dailyEvaluationValance_df.loc[len(dailyEvaluationValance_df)] = rows    #row추가
 
-    print(tradeDetails_df)
-    print(dailyEvaluationValance_df)
-
-
-
 
     for i in range(0, len(tradeDetails_df)):
         print(tradeDetails_df.loc[i][0], tradeDetails_df.loc[i][1], tradeDetails_df.loc[i][2],
@@ -189,19 +192,6 @@ try:
 
     for i in range(0, len(dailyEvaluationValance_df)):
         print(dailyEvaluationValance_df.loc[i][0], dailyEvaluationValance_df.loc[i][1], dailyEvaluationValance_df.loc[i][2])
-
-
-    #Json변환
-    date_list = []
-    evaluation_money_list = []
-    for i in range(0, len(dailyEvaluationValance_df)):
-        date_list.append(dailyEvaluationValance_df.loc[i][0])
-        evaluation_money_list.append(dailyEvaluationValance_df.loc[i][1])
-    data = {}
-    data["date"] = date_list
-    data["evaluation_money"] = evaluation_money_list
-    json_data = json.dumps(data, ensure_ascii=False)
-    print(json_data)
 
 
     #MDD계산
@@ -244,7 +234,25 @@ try:
     totalBenefit = round(float((evaluation_balance - initial_money) / initial_money) * 100, 2)
     print("initial_money : " + str(initial_money))
     print("final_money : " + str(evaluation_balance))
-    print("final_money : " + str(totalBenefit) + "%")
+    print("totalBenefit : " + str(totalBenefit) + "%")
+
+    # 계산결과 Json변환
+    date_list = []
+    evaluation_money_list = []
+    for i in range(0, len(dailyEvaluationValance_df)):
+        date_list.append(dailyEvaluationValance_df.loc[i][0])
+        evaluation_money_list.append(dailyEvaluationValance_df.loc[i][1])
+    data = {}
+    data["date"] = date_list
+    data["evaluation_money"] = evaluation_money_list
+    data["initial_money"] = str(initial_money)
+    data["final_money"] = str(evaluation_balance)
+    data["final_benefit"] = str(totalBenefit)
+    data["mdd"] = str(mdd)
+    data["best_benefit_day"] = str(bestBenefitAtDay)
+    data["worst_benefit_day"] = str(worstBenefitAtDay)
+    json_data = json.dumps(data, ensure_ascii=False)
+    print(json_data)
 
 except Exception as e:
     print("error")
