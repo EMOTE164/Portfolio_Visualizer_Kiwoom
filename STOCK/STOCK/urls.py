@@ -20,4 +20,7 @@ app_name = 'first'
 urlpatterns = [
     path('',views.index,name='index'),
     path('admin/', admin.site.urls),
+    path('chartdata/',views.chartdata,name='chartdata'),
+    path('chartdata_graph/',views.chartdata_graph,name='chartdata_graph'),
+    path('chartdata_item/',views.chartdata_item,name='chartdata_item'),
 ]
