@@ -89,7 +89,7 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 3. 브라우저에서 url입력란에 localhost를 입력하여 접속
 
 # 실행사진
-<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/111.png?raw=true" width="70%"></img>
-<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/222.png?raw=true" width="70%"></img>
-<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/333.png?raw=true" width="70%"></img>
-<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/444.png?raw=true" width="70%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/111.png?raw=true" width="100%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/222.png?raw=true" width="100%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/333.png?raw=true" width="100%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/444.png?raw=true" width="100%"></img>
