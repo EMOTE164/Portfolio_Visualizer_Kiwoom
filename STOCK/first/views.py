@@ -297,38 +297,52 @@ def chartdata_graph(request):
         for i in range(0, len(dailyEvaluationValance_df)):
             print(dailyEvaluationValance_df.loc[i][0], dailyEvaluationValance_df.loc[i][1],
                   dailyEvaluationValance_df.loc[i][2])
+        print("-----------------------------------------")
 
         # MDD계산
         previousPeakPrice = 0
         optimumPrice = 0
+        forOptimumList = []  # 가격이 떨어지기 시작하면 고점을 갱신하기 전까지의 데이터를 모두 여기에 담는다.
 
         for i in range(len(dailyEvaluationValance_df)):
+            currentDate = dailyEvaluationValance_df.loc[i][0]
             currentPrice = dailyEvaluationValance_df.loc[i][1]
+
+            if (currentDate == 20160126):
+                print("s")
+
             if (i == 0):
                 beforePrice = None
-                previousPeakPrice = currentPrice
+                previousPeakPrice = None
                 optimumPrice = currentPrice
             else:
                 beforePrice = dailyEvaluationValance_df.loc[i - 1][1]
 
                 if (beforePrice == currentPrice):
                     pass
-                elif (beforePrice < currentPrice and previousPeakPrice < currentPrice):
-                    tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100,
-                                    2)  # 소수 둘째점에서 반올림함.
-                    if (mdd > tempMdd):
-                        mdd = tempMdd
+                elif (beforePrice < currentPrice):  # 가격이 전날보다 오른 경우
+                    if ((previousPeakPrice != None) and (previousPeakPrice < currentPrice) and (
+                        len(forOptimumList) != 0)):  # 신고점을 달성한 경우 전고점을 갱신하고 optimum지점을 계산함.
+                        optimumPrice = min(forOptimumList)
+                        tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100,
+                                        2)  # 소수 둘째점에서 반올림함.
+                        if (mdd > tempMdd):
+                            mdd = tempMdd
                         previousPeakPrice = currentPrice
-                        optimumPrice = currentPrice
-                elif (beforePrice > currentPrice):
-                    optimumPrice = currentPrice
+                        forOptimumList = []
+                elif (beforePrice > currentPrice):  # *가격이 전날보다 떨어진 경우
+                    if (len(forOptimumList) == 0):
+                        previousPeakPrice = beforePrice
+                    forOptimumList.append(currentPrice)
                 if (i == len(dailyEvaluationValance_df) - 1):  # 신고점이 달성되는 시점에만 연산되는 것 때문에 놓칠 수 있는 구간에 대한 mdd도 계산
-                    tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100, 2)
-                    if (mdd > tempMdd):
-                        mdd = tempMdd
+                    if (len(forOptimumList) != 0):
+                        optimumPrice = min(forOptimumList)
+                        tempMdd = round(float((optimumPrice - previousPeakPrice) / previousPeakPrice) * 100, 2)
+                        if (mdd > tempMdd):
+                            mdd = tempMdd
+            print(currentDate, currentPrice, previousPeakPrice, optimumPrice, mdd)
 
         print("mdd : " + str(mdd) + "%")
-
         # 하루 최악의 수익률
         print("bestBenefitAtDay : " + str(bestBenefitAtDay) + "%")
 
