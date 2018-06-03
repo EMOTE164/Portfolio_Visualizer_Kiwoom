@@ -4,17 +4,17 @@ from pandas import DataFrame, read_sql, concat
 import json
 
 #사용자에게 입력받는 데이터
-startDate = "20160101"
+startDate = "20120101"
 endDate = "20160603"
 
 initial_money = "1000000"
 
 number_keep = "2"      # 보유할 종목의 수
 
-timing_period = "14"    # 매매시교체 주기
+timing_period = "90"    # 매매시교체 주기
 
-consider_item__list = ["091180", "091160", "091170"]
-
+consider_item__list = ["091160", "091170", "091180", "266420","266370"]
+#, "266360", "266410", "244580", "140710", "140700", "117680", "117460", "117700", "266390"
 try:
     items_df_list = []  # 관심종목에 담긴 종목의 데이터들
 
@@ -38,7 +38,7 @@ try:
         items_df_list.append(temp_df)
 
     #데이터 길이가 0인 종목은 리스트에서 제거해버린다.
-    for itemNumber in range(0, len(items_df_list)):
+    for itemNumber in reversed(range(0, len(items_df_list))):   #뒤에부터 제거해줘야 인덱스 오류가 안난다.
         if(len(items_df_list[itemNumber]) == 0):
             del items_df_list[itemNumber]
 
@@ -47,7 +47,6 @@ try:
     for itemNumber in range(0, len(items_df_list)):
         if (len(items_df_list[indexOflongestItem]) < len(items_df_list[itemNumber])):
             indexOflongestItem = itemNumber
-
 
     # 데이터의 길이를 동일하게 맞춰줌
     for itemNumber in range(0, len(items_df_list)):
