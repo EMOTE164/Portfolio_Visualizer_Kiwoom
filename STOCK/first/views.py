@@ -142,7 +142,7 @@ def chartdata_graph(request):
             items_df_list.append(temp_df)
 
         # 데이터 길이가 0인 종목은 리스트에서 제거해버린다.
-        for itemNumber in range(0, len(items_df_list)):
+        for itemNumber in reversed(range(0, len(items_df_list))):
             if (len(items_df_list[itemNumber]) == 0):
                 del items_df_list[itemNumber]
 
