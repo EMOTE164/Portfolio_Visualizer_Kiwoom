@@ -83,6 +83,11 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 - 조회방법 : ``\dt 스키마명.``
 - 삭제방법 : ``drop TABLE 테이블명``
 
+# 설계한 DB구조
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/DB%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%8C%E1%85%A5%E1%86%AB%E1%84%8E%E1%85%A6%E1%84%80%E1%85%AE%E1%84%8C%E1%85%A9.png?raw=true" width="70%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/DB%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB/%E1%84%90%E1%85%A6%E1%84%8B%E1%85%B5%E1%84%87%E1%85%B3%E1%86%AF%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8.png?raw=true" width="70%"></img>
+
+
 # 프로젝트 실행순서
 1. Anaconda prompt에서 현재 경로를 STOCK폴더 하위로 이동.
 2. ``python manage.py runserver 0.0.0.0:80``으로 실행
@@ -90,6 +95,6 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 
 # 실행사진
 <img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/111.png?raw=true" width="100%"></img>
-<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/222.png?raw=true" width="100%"></img>
+<img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/2222.PNG?raw=true" width="100%"></img>
 <img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/333.png?raw=true" width="100%"></img>
 <img src="https://github.com/EMOTE164/Portfolio_Visualizer_Kiwoom/blob/master/%EC%8B%A4%ED%96%89%EC%82%AC%EC%A7%84/444.png?raw=true" width="100%"></img>
