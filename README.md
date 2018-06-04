@@ -1,6 +1,7 @@
 # 구현 시 주의점
-
+Portfolio_Visualizer_Kiwoom/PostgreSQL_code/postgreSQL_3AddDailyPrice.py
 키움증권 함수를 사용할 때 반복문을 사용하여 호출하게 되면 순차적 완료 실행이 아닌 비동기적 흐름이 나타나기 때문에 이를 주의해야 함
+sleep 함수를 두어서 시간차를 줘봤지만 이도 소용이 없어 이벤트를 발생했을때 다음것이 불리게 하는 구현을 해야할 것 같다.
 
 # 실행가능환경
 
