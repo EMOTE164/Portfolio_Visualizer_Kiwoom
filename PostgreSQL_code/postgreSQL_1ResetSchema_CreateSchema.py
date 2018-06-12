@@ -25,9 +25,9 @@ try:
     print("기존에 존재하던 테이블 제거완료")
 
     # 스키마 제거
-    cursor.execute("drop SCHEMA stock_code;")
-    cursor.execute("drop SCHEMA stock_kospi;")
-    cursor.execute("drop SCHEMA stock_kosdaq;")
+    cursor.execute("drop SCHEMA IF EXISTS stock_code;")
+    cursor.execute("drop SCHEMA IF EXISTS stock_kospi;")
+    cursor.execute("drop SCHEMA IF EXISTS stock_kosdaq;")
     print("기존에 존재하던 스키마 제거완료")
 
     # 스키마 생성
