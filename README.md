@@ -54,7 +54,7 @@ TABLESPACE 설명 : http://www.gurubee.net/lecture/2946
 
 3.TABLESPACE 생성
 - TableSpace는 DB관리자에 의해 데이터베이스의 객체가 저장될 수 있는 파일시스템 경로이다.
-- ``create TABLESPACE 테이블스페이스명 LOCATION 디렉토리경로;``
+- ``create TABLESPACE 테이블스페이스명 LOCATION '디렉토리경로';``
 - //명령문의 시작 단어는 소문자로 시작하게 하라. 대분자로 시작하면 오류로 인식한다. 아직 안정화가 덜 된것일까?
 - //생성시 OWNER도 지정해 줄 수 있는데 명시를 해주지 않으면 기본 값으로 알아서 들어감
 - 조회방법 : ``\db``
